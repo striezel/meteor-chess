@@ -1,0 +1,14 @@
+<template name="board">
+  <h1>Board</h1>
+  <table style="border: 1px solid #000; font-size: 2em;">
+  {{#each rows}}
+    <tr height="48" style="border: 1px solid #000">
+    {{#each fields}}
+      <td width="48" align="center" style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
+        <span class="glyphicon glyphicon-{{piece}}"> </span>
+      </td>
+    {{/each}}
+    </tr>
+  {{/each}}
+  </table>
+</template>
