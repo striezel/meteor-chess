@@ -5,7 +5,7 @@ Meteor.methods({
   */
   boardInit: function() {
     console.log('Info: Performing board initialization.');
-    var newBoard = fen_to_board('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
+    var newBoard = FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     Boards.remove({});
     var count = 0;
     var index = 0;
