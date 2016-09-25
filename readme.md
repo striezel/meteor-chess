@@ -1,7 +1,7 @@
 # Meteor chess
 
 This Meteor application aims to be an app where two human players can play
-chess against each other. It is still a a very early development phase, so
+chess against each other. It is still in a very early development phase, so
 most of the functionality is not implemented yet.
 
 ## Setting up the application
