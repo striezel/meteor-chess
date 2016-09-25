@@ -4,7 +4,8 @@
   {{#each rows}}
     <tr height="48" style="border: 1px solid #000">
     {{#each fields}}
-      <td width="48" align="center" style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
+      <td width="48" align="center" id="field_{{_id}}"
+          style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
         <span class="glyphicon glyphicon-{{piece}}"> </span>
       </td>
     {{/each}}
