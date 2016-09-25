@@ -9,6 +9,9 @@ MAINTAINER Dirk Stolle <striezel-dev@web.de>
 # Packages should be up to date.
 RUN apt-get update && apt-get upgrade -y
 
+# install curl
+RUN apt-get install -y curl
+
 # install Meteor
 RUN curl https://install.meteor.com/ | sh
 
