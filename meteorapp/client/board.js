@@ -2,6 +2,39 @@ Template.board.created = function() {
   this.subscribe('boards');
 };
 
+Template.board.events({
+  'click td': function(event) {
+    if (event.currentTarget.id.startsWith('field_'))
+    {
+      let fieldID = event.currentTarget.id.substr(6);
+      //If user clicked start field, set start field ID.
+      if (Session.equals('start', undefined))
+      {
+        let dbField = Boards.findOne({_id: fieldID});
+        if (dbField && dbField.piece !== 'empty')
+          Session.set('start', fieldID);
+      }
+      //If user clicked start field again, reset start field.
+      else if (Session.equals('start', fieldID))
+      {
+        Session.set('start', undefined);
+        //... and reset end field, too.
+        Session.set('end', undefined);
+      }
+      //If user clicked end field again, reset end field.
+      else if (Session.equals('end', fieldID))
+      {
+        Session.set('end', undefined);
+      }
+      //Otherwise field must be end field.
+      else if (!Session.equals('start', undefined))
+      {
+        Session.set('end', fieldID);
+      }
+    } //if
+  }
+});
+
 Template.board.helpers({
   rows: function(){
     var res = [];
@@ -19,6 +52,7 @@ Template.board.helpers({
       var j;
       for (j=0; j<res[i].fields.length; ++j)
       {
+        //determine background colour of field
         if (light)
         {
           res[i].fields[j].background = '#cccccc';
@@ -28,6 +62,12 @@ Template.board.helpers({
           res[i].fields[j].background = '#999999';
         }
         light = !light;
+        //check whether field is start or end field
+        if (Session.equals('start', res[i].fields[j]._id) || Session.equals('end', res[i].fields[j]._id))
+        {
+          //some kind of green
+          res[i].fields[j].background = '#5cb85c';
+        }
         //change rook to tower, because that is the name of the glyphicon
         if (res[i].fields[j].piece == 'rook')
         {
