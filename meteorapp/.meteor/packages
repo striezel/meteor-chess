@@ -22,3 +22,4 @@ twbs:bootstrap
 iron:router
 insecure
 minimongo
+session
