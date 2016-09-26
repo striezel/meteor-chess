@@ -120,7 +120,7 @@ Moves = {
     //If field does not exist, it is no valid starting point.
     if (!field1)
       return false;
-    let field2 = Boards.findOne({{_id: field_id2}});
+    let field2 = Boards.findOne({_id: field_id2});
     //If field does not exist, it is no valid destination point.
     if (!field2)
       return false;
