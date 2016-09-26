@@ -78,6 +78,10 @@ Moves = {
     //If the field is empty, it is no valid destination point.
     if (field1.piece === 'empty')
       return false;
+    //If there is a piece of the same colour on the destination field, then the
+    // move is not allowed.
+    if (field1.colour === field2.colour)
+      return false;
 
     switch(field1.piece)
     {
@@ -129,6 +133,10 @@ Moves = {
       return false;
     //If the field is empty, it is no valid destination point.
     if (field1.piece === 'empty')
+      return false;
+    //If there is a piece of the same colour on the destination field, then the
+    // move is not allowed.
+    if (field1.colour === field2.colour)
       return false;
 
     switch(field1.piece)
