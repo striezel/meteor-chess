@@ -32,11 +32,11 @@ Moves = {
   allowedQueen: function(field1, field2, board)
   {
     //Queen can move like rook or like bishop.
-    if (allowedRook(field1, field2, board))
+    if (Moves.allowedRook(field1, field2, board))
       return true;
-    return allowedBishop(field1, field2, board);
+    return Moves.allowedBishop(field1, field2, board);
   },
-  allowedKnight: function(field1, field2, board)
+  allowedKing: function(field1, field2, board)
   {
     //King can move one field in any direction, i.e. the difference between
     //start and end point must not be more than one in any direction.
