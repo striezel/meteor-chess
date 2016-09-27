@@ -30,7 +30,24 @@ Template.board.events({
       else if (!Session.equals('start', undefined))
       {
         Session.set('end', fieldID);
-      }
+        //try to perform move
+        Meteor.call('performMove', Session.get('start'), Session.get('end'), function(err, result){
+          if (err)
+          {
+            alert('Move could not be performed: ' + err.reason);
+          }
+          else if (result)
+          {
+            //reset start + end to allow next move
+            Session.set('end', undefined);
+            Session.set('start', undefined);
+          }
+          else
+          {
+            alert('Move could not be performed, because it is against the rules.');
+          }
+        });
+      } //else (end field)
     } //if
   }
 });
