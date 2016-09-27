@@ -1,15 +1,27 @@
 <template name="board">
-  <h1>Board</h1>
-  <table style="border: 1px solid #000; font-size: 2em;">
-  {{#each rows}}
-    <tr height="48" style="border: 1px solid #000">
-    {{#each fields}}
-      <td width="48" align="center" id="field_{{_id}}"
-          style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
-        <span class="glyphicon glyphicon-{{piece}}"> </span>
-      </td>
-    {{/each}}
-    </tr>
-  {{/each}}
-  </table>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1>Board</h1>
+    </div>
+    <div class="panel-body">
+      <div align="right">
+        <a href="{{pathFor 'settings'}}" class="btn btn-default">
+          <span class="glyphicon glyphicon-cog"> </span> Settings
+        </a>
+      </div>
+
+      <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
+      {{#each rows}}
+        <tr height="{{settings_size}}" style="border: 1px solid #000">
+        {{#each fields}}
+          <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+              style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
+            <span class="glyphicon glyphicon-{{piece}}"> </span>
+          </td>
+        {{/each}}
+        </tr>
+      {{/each}}
+      </table>
+    </div>
+  </div>
 </template>

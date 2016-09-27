@@ -95,5 +95,15 @@ Template.board.helpers({
     } //for i
 
     return res;
+  },
+  settings_size: function() {
+    if (Session.equals('settings_size', undefined))
+      return 48;
+    return Session.get('settings_size');
+  },
+  settings_em: function() {
+    if (Session.equals('settings_em', undefined))
+      return 2;
+    return Session.get('settings_em');
   }
 });

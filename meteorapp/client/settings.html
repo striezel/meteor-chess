@@ -1,0 +1,93 @@
+<template name="settings">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h1>Settings</h1>
+    </div>
+    <div class="panel-body">
+
+      <table class="table">
+        <tr>
+          <td class="col-sm4 col-md-3">
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Size <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li><a href="#" id="xl">Very large</a></li>  <!-- 72px, 3em -->
+                <li><a href="#" id="lg">Large</a></li>  <!-- 60px, 2.5em -->
+                <li><a href="#" id="md">Medium (default)</a></li> <!-- 48px, 2em -->
+                <li><a href="#" id="sm">Small</a></li> <!-- 36px, 1.5em -->
+                <li><a href="#" id="xs">Very small</a></li> <!-- 24px, 1em -->
+              </ul>
+            </div>
+          </td>
+          <td class="col-sm8 col-md-6">
+
+            <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
+              <tr height="{{settings_size}}" style="border: 1px solid #000">
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-tower"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #999999;">
+                  <span class="glyphicon glyphicon-knight"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-bishop"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #999999;">
+                  <span class="glyphicon glyphicon-queen"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-king"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: black; background-color: #999999;">
+                  <span class="glyphicon glyphicon-pawn"> </span>
+                </td>
+              </tr>
+              <tr height="{{settings_size}}" style="border: 1px solid #000">
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #999999;">
+                  <span class="glyphicon glyphicon-tower"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-knight"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #999999;">
+                  <span class="glyphicon glyphicon-bishop"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-queen"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #999999;">
+                  <span class="glyphicon glyphicon-king"> </span>
+                </td>
+                <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                    style="border: 1px solid #000; color: white; background-color: #cccccc;">
+                  <span class="glyphicon glyphicon-pawn"> </span>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+
+      <br />
+
+      <a href="/" class="btn btn-default">
+        <span class="glyphicon glyphicon-chevron-left"> </span> Back
+      </a>
+
+    </div>
+  </div>
+</template>
