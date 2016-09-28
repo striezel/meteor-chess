@@ -1,0 +1,201 @@
+<template name="information">
+  <div class="page-header">
+    <a href="/">
+      <button class="btn btn-info" style="width: 100%;">
+        <strong>Meteror Chess</strong>
+      </button>
+    </a>
+  </div>
+
+  <div><br /></div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Server connection</strong>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Connected</strong>
+          </td>
+          <td class="col-xs-8">
+            {{#if connection.connected}}
+            <!-- <span class="label label-success"> -->
+              <span class="glyphicon glyphicon-ok"> </span> Yes
+            <!-- </span> -->
+            {{else}}
+              <span class="glyphicon glyphicon-remove"> </span> No
+              {{#if equals connection.status 'offline'}}
+              (but it is intended that way)
+              {{/if}}
+            {{/if}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Status</strong>
+          </td>
+          <td class="col-xs-8">
+            {{connection.description}}
+          </td>
+        </tr>
+        {{#unless connection.connected}}
+        <tr>
+          <td class="col-xs-4">
+            <strong>Options</strong>
+          </td>
+          <td class="col-xs-8">
+            <!-- let's try to reconnect -->
+            <button id="tryconnect" class="btn btn-info">
+              <span class="glyphicon glyphicon-refresh"> </span>
+              Attempt reconnect
+            </button>
+          </td>
+        </tr>
+       {{/unless}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Meteor</strong>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Release</strong>
+          </td>
+          <td class="col-xs-8">
+            {{meteorRelease}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Status</strong>
+          </td>
+          <td class="col-xs-8">
+            <pre>{{meteorStatus}}</pre>
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Production mode</strong>
+          </td>
+          <td class="col-xs-8">
+            {{meteorProduction}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Development mode</strong>
+          </td>
+          <td class="col-xs-8">
+            {{meteorDevelopment}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Startup</strong>
+          </td>
+          <td class="col-xs-8">
+            {{meteorStartup}} (uptime: {{meteorUptime}})
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>MongoDB</strong>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-4">
+            <strong>NPM Module Version</strong>
+          </td>
+          <td class="col-xs-8">
+            {{npmMongoModuleVersion}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>MongoDB host</strong>
+          </td>
+          <td class="col-xs-8">
+            {{mongoHost}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>MongoDB version (server)</strong>
+          </td>
+          <td class="col-xs-8">
+            {{mongoVersion}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Storage Engine</strong>
+          </td>
+          <td class="col-xs-8">
+            {{mongoEngine}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Git</strong>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Branch</strong>
+          </td>
+          <td class="col-xs-8">
+            {{gitInfo.branch}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Description</strong>
+          </td>
+          <td class="col-xs-8">
+            {{gitInfo.description}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Commit hash</strong>
+          </td>
+          <td class="col-xs-8">
+            {{gitInfo.hashLong}}
+          </td>
+        </tr>
+        <tr>
+          <td class="col-xs-4">
+            <strong>Commit date</strong>
+          </td>
+          <td class="col-xs-8">
+            {{gitInfo.commitDate}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <a href="/">
+    <button class="btn btn-default col-xs-6">
+      <span class="glyphicon glyphicon-step-backward"></span> Back
+    </button>
+  </a>
+
+</template>

@@ -4,24 +4,36 @@
       <h1>Board</h1>
     </div>
     <div class="panel-body">
-      <div align="right">
+      <div align="left" class="col-xs-4 col-md-2">
         <a href="{{pathFor 'settings'}}" class="btn btn-default">
           <span class="glyphicon glyphicon-cog"> </span> Settings
         </a>
       </div>
 
-      <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
-      {{#each rows}}
-        <tr height="{{settings_size}}" style="border: 1px solid #000">
-        {{#each fields}}
-          <td width="{{settings_size}}" align="center" id="field_{{_id}}"
-              style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
-            <span class="glyphicon glyphicon-{{piece}}"> </span>
-          </td>
+      <div align="left" class="col-xs-4 col-md-8"></div>
+
+      <div align="right" class="col-xs-4 col-md-2">
+        <a href="{{pathFor 'information'}}" class="btn btn-default">
+          <span class="glyphicon glyphicon-info-sign"> </span> Information
+        </a>
+      </div>
+
+      <br />
+
+      <div class="col-xs-12">
+        <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
+        {{#each rows}}
+          <tr height="{{settings_size}}" style="border: 1px solid #000">
+          {{#each fields}}
+            <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+                style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
+              <span class="glyphicon glyphicon-{{piece}}"> </span>
+            </td>
+          {{/each}}
+          </tr>
         {{/each}}
-        </tr>
-      {{/each}}
-      </table>
+        </table>
+      </div>
     </div>
   </div>
 </template>

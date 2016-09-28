@@ -1,0 +1,35 @@
+#!/bin/bash
+# (C) 2016 Dirk Stolle
+#
+# This script generates some Git version information and puts it into a JSON
+# file for the Meteor application (path will be private/git-info.json).
+
+# Use git log to test whether we are in a git repository or not.
+git log -1 2>&1 > /dev/null
+if [[ $? -ne 0 ]]
+then
+  # not in a git repository
+  BRANCH="not in Git"
+  COMMIT_DATE="not in Git"
+  DESCRIPTION="not available"
+  HASH_LONG="not in Git"
+  HASH_SHORT="not in Git"
+else
+  # get info from git
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+  COMMIT_DATE=$(git log -1 --format=format:%ai)
+  DESCRIPTION=$(git describe --always)
+  HASH_LONG=$(git rev-parse HEAD)
+  HASH_SHORT=$(git rev-parse --short HEAD)
+fi
+
+JSON_FILE="meteorapp/private/git-info.json"
+
+
+echo -n "{" > $JSON_FILE
+echo -n "\"branch\": \"$BRANCH\"," >> $JSON_FILE
+echo -n "\"commitDate\": \"$COMMIT_DATE\"," >> $JSON_FILE
+echo -n "\"description\": \"$DESCRIPTION\"," >> $JSON_FILE
+echo -n "\"hashLong\": \"$HASH_LONG\"," >> $JSON_FILE
+echo -n "\"hashShort\": \"$HASH_SHORT\"" >> $JSON_FILE
+echo "}" >> $JSON_FILE

@@ -1,0 +1,2 @@
+# ignore git-info.json, because it is generated with every commit
+git-info.json
