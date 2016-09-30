@@ -53,7 +53,7 @@ Meteor.methods({
     if (board.toMove !== startDoc.colour)
     {
       console.log('Info: Player tried to move ' + startDoc.colour
-               + ', but ' + board.toMove + 'is to move.');
+               + ', but ' + board.toMove + ' is to move.');
       throw new Meteor.Error('wrong-player-to-move', 'The colour that has to move is ' + board.toMove + '.');
     }
 
