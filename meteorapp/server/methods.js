@@ -1,13 +1,14 @@
 /* Methods for the server side. */
 
 Meteor.methods({
-  /* boardInit: method to initialize a board
+  /* boardInit: method to initialize a new board
+
+     return value:
+       Returns the ID of the new board.
   */
   boardInit: function() {
     console.log('Info: Performing board initialization.');
     var newBoard = FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-    Boards.remove({});
-    Fields.remove({});
     //new board, white to move
     var boardId = Boards.insert({toMove: 'white', created: new Date()});
     var index = 0;
