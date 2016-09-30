@@ -1,9 +1,45 @@
 /* class to check whether certain moves are legal or not */
 Moves = {
+  allowedPawnBlack: function(field1, field2, board)
+  {
+    let rowDiff = field1.row - field2.row;
+    let colDiff = Math.abs(field1.column.charCodeAt(0) - field2.column.charCodeAt(0));
+    //If dest. is empty, move may only be one step ahead; or two if in initial position.
+    if (field2.colour === 'empty')
+    {
+      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 7))));
+    }
+    if (field2.colour === 'white')
+    {
+      return ((colDiff === 1) && (rowDiff === 1));
+    }
+    //everything else is not allowed
+    return false;
+  },
+  allowedPawnWhite: function(field1, field2, board)
+  {
+    let rowDiff = field2.row - field1.row;
+    let colDiff = Math.abs(field1.column.charCodeAt(0) - field2.column.charCodeAt(0));
+    //If dest. is empty, move may only be one step ahead; or two if in initial position.
+    if (field2.colour === 'empty')
+    {
+      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 2))));
+    }
+    if (field2.colour === 'black')
+    {
+      return ((colDiff === 1) && (rowDiff === 1));
+    }
+    //everything else is not allowed
+    return false;
+  },
   allowedPawn: function(field1, field2, board)
   {
-    //TODO: implement
-    return null; //null means: not implemented yet
+    if (field1.colour === 'black')
+      return Moves.allowedPawnBlack(field1, field2, board);
+    else if (field1.colour === 'white')
+      return Moves.allowedPawnWhite(field1, field2, board);
+    else //empty
+      return false;
   },
   allowedRook: function(field1, field2, board)
   {
