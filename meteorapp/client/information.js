@@ -1,5 +1,5 @@
 Template.information.created = function() {
-  this.subscribe('status');
+  this.subscribe('info');
 };
 
 Template.information.events({
@@ -60,48 +60,48 @@ Template.information.helpers({
     return 'no';
   },
   meteorStartup: function() {
-    var start = Status.findOne({name: 'startupTime'});
+    var start = Info.findOne({name: 'startupTime'});
     if (!start)
       return "unknown";
     return moment(start.value).format();
   },
   meteorUptime: function() {
-    var start = Status.findOne({name: 'startupTime'});
+    var start = Info.findOne({name: 'startupTime'});
     if (!start)
       return "unknown";
     return moment.duration(moment()-moment(start.value)).humanize();
   },
   npmMongoModuleVersion: function() {
     //get value from collection for status
-    var ver = Status.findOne({name: 'npmMongoModuleVersion'});
+    var ver = Info.findOne({name: 'npmMongoModuleVersion'});
     if (!ver)
       return "Error while querying version";
     return ver.value;
   },
   mongoHost: function() {
     //get value from status collection
-    var host = Status.findOne({name: 'mongoHost'});
+    var host = Info.findOne({name: 'mongoHost'});
     if (!host)
       return "Error while querying the host";
     return host.value;
   },
   mongoVersion: function() {
     //get value from status collection
-    var mVer = Status.findOne({name: 'mongoVersion'});
+    var mVer = Info.findOne({name: 'mongoVersion'});
     if (!mVer)
       return "Error while querying MongoDB version";
     return mVer.value;
   },
   mongoEngine: function() {
     //get value from status collection
-    var eng = Status.findOne({name: 'mongoEngine'});
+    var eng = Info.findOne({name: 'mongoEngine'});
     if (!eng)
       return "Error while querying the storage engine";
     return eng.value;
   },
   gitInfo: function() {
     //get value from collection for status
-    var git = Status.findOne({name: 'gitInfo'});
+    var git = Info.findOne({name: 'gitInfo'});
     if (!git)
       return {branch: 'unknown', description: 'unknown',
               commitDate: 'unknown',
