@@ -1,16 +1,23 @@
 Template.board.created = function() {
   this.subscribe('boards');
+  this.subscribe('fields');
+  if (Session.equals('board', undefined))
+  {
+    let newestBoard = Boards.findOne({}, {sort: {created: -1}})
+    if (newestBoard)
+      Session.set('board', newestBoard._id);
+  }
 };
 
 Template.board.events({
-  'click td': function(event) {
+  'click td, touchstart td': function(event) {
     if (event.currentTarget.id.startsWith('field_'))
     {
       let fieldID = event.currentTarget.id.substr(6);
       //If user clicked start field, set start field ID.
       if (Session.equals('start', undefined))
       {
-        let dbField = Boards.findOne({_id: fieldID});
+        let dbField = Fields.findOne({_id: fieldID, board: Session.get('board')});
         if (dbField && dbField.piece !== 'empty')
           Session.set('start', fieldID);
       }
@@ -58,7 +65,7 @@ Template.board.helpers({
     var i = 8;
     for (i = 8; i>= 1; --i)
     {
-      let data = Boards.find({row: i}, {sort: {column: 1}});
+      let data = Fields.find({row: i, board: Session.get('board')}, {sort: {column: 1}});
       let f = data.fetch();
       res.push({fields: f});
     } //for

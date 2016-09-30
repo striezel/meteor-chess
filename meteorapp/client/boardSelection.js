@@ -1,0 +1,41 @@
+Template.boardSelection.created = function() {
+  this.subscribe('boards');
+};
+
+Template.boardSelection.events({
+  'click li, touchstart li': function(event) {
+    if ((event.currentTarget.id !== null) && (event.currentTarget.id !== undefined))
+    {
+      let boardID = event.currentTarget.id;
+      Session.set('board', boardID);
+      Router.go('board');
+    } //if
+  }
+});
+
+Template.boardSelection.helpers({
+  boards: function(){
+  	 var icons = ['king', 'queen', 'bishop', 'knight', 'tower', 'pawn'];
+    var result = Boards.find({}, {sort: {created: -1}}).fetch();
+    var i = 0;
+    for (i=0; i<result.length; ++i)
+    {
+    	if (result[i].toMove === 'white')
+    	{
+    	  result[i].background = '#000000';
+    	  result[i].colour = '#ffffff';
+    	}
+    	else
+    	{
+        result[i].background = '#ffffff';
+    	  result[i].colour = '#000000';
+    	}
+    	//add some random chess figure
+    	result[i].icon = icons[Math.floor(Math.random()*icons.length)];
+    	//number
+    	result[i].number = result.length - i;
+    	result[i].creation = moment(result[i].created).format("dddd, MMMM Do YYYY, HH:mm:ss");
+    } //for i
+    return result;
+  }
+});

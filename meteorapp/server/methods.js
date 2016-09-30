@@ -7,14 +7,16 @@ Meteor.methods({
     console.log('Info: Performing board initialization.');
     var newBoard = FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     Boards.remove({});
-    var count = 0;
+    Fields.remove({});
+    //new board, white to move
+    var boardId = Boards.insert({toMove: 'white', created: new Date()});
     var index = 0;
     for (index = 0; index < newBoard.length; ++index)
     {
-      Boards.insert(newBoard[index]);
-      ++count;
+    	newBoard[index].board = boardId;
+      Fields.insert(newBoard[index]);
     } //for
-    return count;
+    return boardId;
   },
 
 
@@ -31,18 +33,22 @@ Meteor.methods({
   */
   performMove: function(startFieldID, destFieldID)
   {
-    let startDoc = Boards.findOne({_id: startFieldID});
+    let startDoc = Fields.findOne({_id: startFieldID});
     if (!startDoc)
     {
       throw new Meteor.Error('entity-not-found', 'There is no field with the ID ' + startFieldID + '.');
     }
-    let destDoc = Boards.findOne({_id: destFieldID});
+    let destDoc = Fields.findOne({_id: destFieldID});
     if (!destDoc)
     {
       throw new Meteor.Error('entity-not-found', 'There is no field with the ID ' + destFieldID + '.');
     }
+    if (startDoc.board !== destDoc.board)
+    {
+    	throw new Meteor.Error('boards-mismatch', 'The given fields are on different boards!');
+    }
 
-    let allow = Moves.allowed(startFieldID, destFieldID, 'TODO: fill board ID');
+    let allow = Moves.allowed(startFieldID, destFieldID, startDoc.board);
     if (false === allow)
     {
       return false;
@@ -52,9 +58,9 @@ Meteor.methods({
       // Move is either allowed or check not implemented, so assume the player
       // does a correct move.
       // -- "copy" piece to destination field
-      Boards.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
+      Fields.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
       // -- remove piece in start field
-      Boards.update({_id: startFieldID}, {$set: {piece: 'empty', colour: 'empty'}});
+      Fields.update({_id: startFieldID}, {$set: {piece: 'empty', colour: 'empty'}});
       return true;
     }
   }

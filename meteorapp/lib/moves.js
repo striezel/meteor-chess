@@ -85,67 +85,9 @@ Moves = {
   /* checks whether a move is allowed or not
 
      parameters:
-       startCol - (string) column where the move starts
-       startRow - (integer number) row where the move starts
-       destCol  - (string) column where the move ends
-       destRow  - (integer number) row where the move ends
-       board    - (string) ID of the board
-
-     return value:
-       Returns true, if the move is allowed.
-       Returns false, if the move is not legal.
-       Returns null, if the implementation cannot determine whether the move is
-       legal or not. (This is an indication for the yet incomplete
-       implementation.)
-  */
-  allowed: function(startCol, startRow, destCol, destRow, board)
-  {
-    //If start and destination are equal, it is not a valid move.
-    if ((startCol === destCol) && (startRow === destRow))
-      return false;
-    let field1 = Boards.findOne({row: startRow, column: startCol});
-    //If field does not exist, it is no valid starting point.
-    if (!field1)
-      return false;
-    let field2 = Boards.findOne({row: destRow, column: destCol});
-    //If field does not exist, it is no valid destination point.
-    if (!field2)
-      return false;
-    //If the field is empty, it is no valid destination point.
-    if (field1.piece === 'empty')
-      return false;
-    //If there is a piece of the same colour on the destination field, then the
-    // move is not allowed.
-    if (field1.colour === field2.colour)
-      return false;
-
-    switch(field1.piece)
-    {
-      case 'pawn':
-           return Moves.allowedPawn(field1, field2, board);
-      case 'rook':
-      case 'tower':
-           return Moves.allowedRook(field1, field2, board);
-      case 'knight':
-           return Moves.allowedKnight(field1, field2, board);
-      case 'bishop':
-           return Moves.allowedBishop(field1, field2, board);
-      case 'queen':
-           return Moves.allowedQueen(field1, field2, board);
-      case 'king':
-           return Moves.allowedKing(field1, field2, board);
-    } //switch
-    //no piece matched, error
-    return null;
-  },
-
-
-  /* checks whether a move is allowed or not
-
-     parameters:
        field_id1 - (string) ID of field where the move starts
        field_id2 - (string) ID of field where the move ends
-       board    - (string) ID of the board
+       boardID   - (string) ID of the board
 
      return value:
        Returns true, if the move is allowed.
@@ -154,13 +96,13 @@ Moves = {
        legal or not. (This is an indication for the yet incomplete
        implementation.)
   */
-  allowed: function(field_id1, field_id2, board)
+  allowed: function(field_id1, field_id2, boardID)
   {
-    let field1 = Boards.findOne({_id: field_id1});
+    let field1 = Fields.findOne({_id: field_id1, board: boardID});
     //If field does not exist, it is no valid starting point.
     if (!field1)
       return false;
-    let field2 = Boards.findOne({_id: field_id2});
+    let field2 = Fields.findOne({_id: field_id2, board: boardID});
     //If field does not exist, it is no valid destination point.
     if (!field2)
       return false;
@@ -178,18 +120,18 @@ Moves = {
     switch(field1.piece)
     {
       case 'pawn':
-           return Moves.allowedPawn(field1, field2, board);
+           return Moves.allowedPawn(field1, field2, boardID);
       case 'rook':
       case 'tower':
-           return Moves.allowedRook(field1, field2, board);
+           return Moves.allowedRook(field1, field2, boardID);
       case 'knight':
-           return Moves.allowedKnight(field1, field2, board);
+           return Moves.allowedKnight(field1, field2, boardID);
       case 'bishop':
-           return Moves.allowedBishop(field1, field2, board);
+           return Moves.allowedBishop(field1, field2, boardID);
       case 'queen':
-           return Moves.allowedQueen(field1, field2, board);
+           return Moves.allowedQueen(field1, field2, boardID);
       case 'king':
-           return Moves.allowedKing(field1, field2, board);
+           return Moves.allowedKing(field1, field2, boardID);
     } //switch
     //no piece matched, error
     return null;
