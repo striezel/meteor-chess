@@ -47,6 +47,14 @@ Meteor.methods({
     {
     	throw new Meteor.Error('boards-mismatch', 'The given fields are on different boards!');
     }
+    //find board
+    let board = Boards.findOne({_id: startDoc.board});
+    if (board.toMove !== startDoc.colour)
+    {
+      console.log('Info: Player tried to move ' + startDoc.colour
+               + ', but ' + board.toMove + 'is to move.');
+      throw new Meteor.Error('wrong-player-to-move', 'The colour that has to move is ' + board.toMove + '.');
+    }
 
     let allow = Moves.allowed(startFieldID, destFieldID, startDoc.board);
     if (false === allow)
@@ -61,6 +69,11 @@ Meteor.methods({
       Fields.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
       // -- remove piece in start field
       Fields.update({_id: startFieldID}, {$set: {piece: 'empty', colour: 'empty'}});
+      // -- update colour that is to move
+      if (board.toMove === 'white')
+        Boards.update({_id: board._id}, {$set: {toMove: 'black'}});
+      else
+        Boards.update({_id: board._id}, {$set: {toMove: 'white'}});
       return true;
     }
   }
