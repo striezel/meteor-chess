@@ -1,6 +1,6 @@
 <template name="information">
   <div class="page-header">
-    <a href="/">
+    <a href="{{pathFor 'board'}}">
       <button class="btn btn-info" style="width: 100%;">
         <strong>Meteror Chess</strong>
       </button>
@@ -192,7 +192,7 @@
     </table>
   </div>
 
-  <a href="/">
+  <a href="{{pathFor 'board'}}">
     <button class="btn btn-default col-xs-6">
       <span class="glyphicon glyphicon-step-backward"></span> Back
     </button>

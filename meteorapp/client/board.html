@@ -5,20 +5,28 @@
     </div>
     <div class="panel-body">
       <div align="left" class="col-xs-4 col-md-2">
-        <a href="{{pathFor 'settings'}}" class="btn btn-default">
+        <a href="{{pathFor 'boardSelection'}}" class="btn btn-default col-xs-12">
+          <span class="glyphicon glyphicon-chevron-left"> </span> Back
+        </a>
+      </div>
+
+      <div align="left" class="col-xs-0 col-md-3"></div>
+
+      <div align="left" class="col-xs-4 col-md-2">
+        <a href="{{pathFor 'settings'}}" class="btn btn-default col-xs-12">
           <span class="glyphicon glyphicon-cog"> </span> Settings
         </a>
       </div>
 
-      <div align="left" class="col-xs-4 col-md-8"></div>
+      <div align="left" class="col-xs-0 col-md-3"></div>
 
       <div align="right" class="col-xs-4 col-md-2">
-        <a href="{{pathFor 'information'}}" class="btn btn-default">
+        <a href="{{pathFor 'information'}}" class="btn btn-default col-xs-12">
           <span class="glyphicon glyphicon-info-sign"> </span> Information
         </a>
       </div>
 
-      <br />
+      <br /><br />
 
       <div class="col-xs-12">
         <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
