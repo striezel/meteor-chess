@@ -26,13 +26,15 @@ Meteor.methods({
      parameters:
        startFieldID - (string) ID of the field where the move starts
        destFieldID  - (string) ID of the field where the move ends
+       promoteTo    - (string) type of piece that a pawn shall be promoted to,
+                      if the move allows pawn promotion
 
      return value:
        Returns true, if the move was performed.
        Returns false, if the move was not performed, e.g. because the move was
        against the chess rules.
   */
-  performMove: function(startFieldID, destFieldID)
+  performMove: function(startFieldID, destFieldID, promoteTo)
   {
     let startDoc = Fields.findOne({_id: startFieldID});
     if (!startDoc)
@@ -70,6 +72,35 @@ Meteor.methods({
       Fields.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
       // -- remove piece in start field
       Fields.update({_id: startFieldID}, {$set: {piece: 'empty', colour: 'empty'}});
+      // -- check for promotion
+      if (startDoc.piece === 'pawn')
+      {
+        //sanitize promotion piece
+        switch(promoteTo)
+        {
+          case 'tower':
+               promoteTo = 'rook';
+               break;
+          case 'bishop':
+          case 'knight':
+          case 'rook':
+               promoteTo = promoteTo;
+               break;
+          default:
+               promoteTo = 'queen';
+        } //switch
+        //check for promotion of white pawn
+        if ((startDoc.colour === 'white') && (destDoc.row === 8))
+        {
+          Fields.update({_id: destFieldID}, {$set: {piece: promoteTo}});
+          console.log('Info: Promoted white pawn on ' + destDoc.column + destDoc.row + ' to ' + promoteTo + '.');
+        }
+        else if ((startDoc.colour === 'black') && (destDoc.row === 1))
+        {
+          Fields.update({_id: destFieldID}, {$set: {piece: promoteTo}});
+          console.log('Info: Promoted black pawn on ' + destDoc.column + destDoc.row + ' to ' + promoteTo + '.');
+        }
+      }//if pawn
       // -- update colour that is to move
       if (board.toMove === 'white')
         Boards.update({_id: board._id}, {$set: {toMove: 'black'}});

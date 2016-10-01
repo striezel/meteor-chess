@@ -38,7 +38,7 @@ Template.board.events({
       {
         Session.set('end', fieldID);
         //try to perform move
-        Meteor.call('performMove', Session.get('start'), Session.get('end'), function(err, result){
+        Meteor.call('performMove', Session.get('start'), Session.get('end'), Session.get('promotion'), function(err, result){
           if (err)
           {
             alert('Move could not be performed: ' + err.reason);
