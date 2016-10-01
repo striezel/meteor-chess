@@ -1,11 +1,12 @@
 Template.board.created = function() {
   this.subscribe('boards');
   this.subscribe('fields');
+
+  //If no board was selected yet, go back to board selection.
   if (Session.equals('board', undefined))
   {
-    let newestBoard = Boards.findOne({}, {sort: {created: -1}})
-    if (newestBoard)
-      Session.set('board', newestBoard._id);
+    console.log('Board is not defined, switching to board selection.');
+    Router.go('boardSelection');
   }
 };
 
