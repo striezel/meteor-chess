@@ -8,6 +8,13 @@ Template.settings.helpers({
     if (Session.equals('settings_em', undefined))
       return 2;
     return Session.get('settings_em');
+  },
+  promotion: function() {
+    if (Session.equals('promotion', undefined))
+      return 'queen';
+    if (Session.equals('promotion', 'rook'))
+      return 'tower';
+    return Session.get('promotion');
   }
 });
 
@@ -16,6 +23,7 @@ Template.settings.events({
     let id = event.currentTarget.id;
     switch (id)
     {
+      //size-related settings
       case 'xl':
            Session.set('settings_size', 72);
            Session.set('settings_em', 3);
@@ -35,6 +43,13 @@ Template.settings.events({
       case 'xs':
            Session.set('settings_size', 24);
            Session.set('settings_em', 1);
+           break;
+      //promotion-related settings
+      case 'queen':
+      case 'knight':
+      case 'rook':
+      case 'bishop':
+           Session.set('promotion', id);
            break;
     } //switch
   }
