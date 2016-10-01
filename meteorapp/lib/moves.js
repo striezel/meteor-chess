@@ -1,5 +1,35 @@
 /* class to check whether certain moves are legal or not */
 Moves = {
+  isCastlingAttemptAllowed: function(field1, field2, board)
+  {
+    if ((field1.colour === 'white') && (field1.column === 'e') && (field1.row === 1))
+    {
+      if ((field2.column === 'c') && (field2.row === 1) && (field2.piece === 'empty'))
+      {
+        let boardDoc = Boards.findOne({_id: board});
+        return boardDoc.castling.white.queenside;
+      }
+      if ((field2.column === 'g') && (field2.row === 1) && (field2.piece === 'empty'))
+      {
+        let boardDoc = Boards.findOne({_id: board});
+        return boardDoc.castling.white.kingside;
+      }
+    }//if white king at initial position
+    else if ((field1.colour === 'black') && (field1.column === 'e') && (field1.row === 8))
+    {
+      if ((field2.column === 'c') && (field2.row === 8) && (field2.piece === 'empty'))
+      {
+        let boardDoc = Boards.findOne({_id: board});
+        return boardDoc.castling.black.queenside;
+      }
+      if ((field2.column === 'g') && (field2.row === 8) && (field2.piece === 'empty'))
+      {
+        let boardDoc = Boards.findOne({_id: board});
+        return boardDoc.castling.black.kingside;
+      }
+    }//if black king at initial position
+    return false;
+  },
   allowedPawnBlack: function(field1, field2, board)
   {
     let rowDiff = field1.row - field2.row;
@@ -76,7 +106,15 @@ Moves = {
   {
     //King can move one field in any direction, i.e. the difference between
     //start and end point must not be more than one in any direction.
-    //TODO: implement check for castling
+    //Only one exception is castling.
+
+    //Check for castling.
+    let ca = Moves.isCastlingAttemptAllowed(field1, field2, board);
+    if (ca === true)
+    {
+      return true;
+    }
+    //regular move
     return ((Math.abs(field1.row - field2.row) <= 1)
       && (Math.abs(field1.column.charCodeAt(0) - field2.column.charCodeAt(0)) <= 1));
   },
