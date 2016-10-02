@@ -1,0 +1,31 @@
+<template name="boardDelete">
+  <div class="panel panel-danger">
+    <div class="panel-heading" align="center">
+      <strong>Do you really want to delete that board?</strong>
+    </div>
+    <div class="panel-body">
+
+      <table class="table" style="max-width: 100%;">
+        <tbody>
+          <tr>
+            <td>
+              {{> boardCore}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <button class="btn btn-danger deleteConfirm col-xs-4" id="boarddeleteconfirm">
+          <span class="glyphicon glyphicon-trash"></span> Yes
+        </button>
+        <div class="col-xs-4"></div>
+        <!-- using style="width: 33%" instead of class="col-xs-4", because the
+             later one does not display properly (for an unknown reason). -->
+        <a href="{{pathFor 'board'}}" class="btn btn-default" style="width: 33%;">
+          <span class="glyphicon glyphicon-remove"></span> No
+        </a>
+      </p>
+    </div>
+  </div>
+</template>

@@ -28,20 +28,13 @@
 
       <br /><br />
 
-      <div class="col-xs-12">
-        <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
-        {{#each rows}}
-          <tr height="{{settings_size}}" style="border: 1px solid #000">
-          {{#each fields}}
-            <td width="{{settings_size}}" align="center" id="field_{{_id}}"
-                style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
-              <span class="glyphicon glyphicon-{{piece}}"> </span>
-            </td>
-          {{/each}}
-          </tr>
-        {{/each}}
-        </table>
-      </div>
+      {{> boardCore}}
+
+      <br /><br />
+
+      <a href="{{pathFor 'boardDelete'}}" class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"> </span> Delete this board
+      </a>
     </div>
   </div>
 </template>

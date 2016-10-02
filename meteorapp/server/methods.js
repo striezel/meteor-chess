@@ -24,6 +24,28 @@ Meteor.methods({
   },
 
 
+  /* boardDelete: deletes the board with the given ID
+
+     parameters:
+       boardId - (string) ID of the board that shall be deleted
+
+     return value:
+       Returns true on success. Throws on error.
+  */
+  boardDelete: function(boardId) {
+    console.log('Info: Board deletion request for ID ' + JSON.stringify(boardId) + '.');
+    let boardDoc = Boards.findOne({_id: boardId});
+    if (!boardDoc)
+    {
+      throw new Meteor.Error('entity-not-found', 'There is no board with the ID ' + boardId + '.');
+    }
+    //delete fields and board information
+    Fields.remove({board: boardId});
+    Boards.remove({_id: boardId});
+    return true;
+  },
+
+
   /* performMove: move a piece
 
      parameters:
