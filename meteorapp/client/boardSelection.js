@@ -10,6 +10,16 @@ Template.boardSelection.events({
       Session.set('board', boardID);
       Router.go('board');
     } //if
+  },
+  'click #new, touchstart #new': function(event) {
+    Meteor.call('boardInit', function(err, result) {
+      if (!err)
+      {
+        //set board ID and go to new board
+        Session.set('board', result);
+        Router.go('board');
+      }
+    });
   }
 });
 

@@ -4,17 +4,21 @@
       <strong>Select a board to play</strong>
     </div>
     <div class="panel-body">
-    
+      <div class="list-group">
+        <button class="btn btn-success" id="new" align="center">
+          <span class="glyphicon glyphicon-plus"> </span> Add new board
+        </button>
+      </div>
+
       <ul class="list-group">
       {{#each boards}}
-      <li class="list-group-item" id="{{_id}}"> 
+      <li class="list-group-item" id="{{_id}}">
         <span class="glyphicon glyphicon-{{icon}}"
               style="color: black; width: 36px; height: 36px; font-size: 1.5em; align: center;"> </span>
         #{{number}} - created at {{creation}}, {{toMove}} is to move
       </li>
       {{/each}}
-      </ul>    
-    
+      </ul>
     </div>
   </div>
 </template>
