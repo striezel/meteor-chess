@@ -41,7 +41,11 @@ if (Meteor.isServer)
     Info.insert({name: 'startupTime',
                    value: new Date()});
 
-    //initialize board
-    Meteor.call('boardInit');
+    //initialize board, if there is none
+    let boardDoc = Boards.findOne({});
+    if (!boardDoc)
+    {
+      Meteor.call('boardInit');
+    }
   });
 }
