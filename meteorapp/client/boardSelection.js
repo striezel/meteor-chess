@@ -47,5 +47,12 @@ Template.boardSelection.helpers({
     	result[i].creation = moment(result[i].created).format("dddd, MMMM Do YYYY, HH:mm:ss");
     } //for i
     return result;
+  },
+  empty: function(){
+    let bDoc = Boards.findOne({});
+    if (!bDoc)
+      return true;
+    else
+      return false;
   }
 });
