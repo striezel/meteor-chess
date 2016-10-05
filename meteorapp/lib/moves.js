@@ -1,5 +1,26 @@
 /* class to check whether certain moves are legal or not */
 Moves = {
+  isEmptyStraightOrDiagonal(field1, field2)
+  {
+    let rowDiff = field2.row - field1.row;
+    let colDiff = field2.column.charCodeAt(0) - field1.column.charCodeAt(0);
+
+    let curRow = field1.row + Math.sign(rowDiff);
+    let curCol = String.fromCharCode(field1.column.charCodeAt(0) + Math.sign(colDiff));
+    while ((curRow !== field2.row) || (curCol !== field2.column))
+    {
+      //try to find empty field at current coordinates
+      let fieldDoc = Fields.findOne({board: field1.board, column: curCol, row: curRow, colour: 'empty'});
+      //If no field was found, it is not empty (or does not exist).
+      if (!fieldDoc)
+        return false;
+      //move to next field
+      curRow = curRow + Math.sign(rowDiff);
+      curCol = String.fromCharCode(curCol.charCodeAt(0) + Math.sign(colDiff));
+    } //while
+    //All fields empty, all OK.
+    return true;
+  },
   isCastlingAttemptAllowed: function(field1, field2, board)
   {
     if ((field1.colour === 'white') && (field1.column === 'e') && (field1.row === 1))
@@ -37,7 +58,8 @@ Moves = {
     //If dest. is empty, move may only be one step ahead; or two if in initial position.
     if (field2.colour === 'empty')
     {
-      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 7))));
+      let f3 = Fields.findOne({board: field1.board, column: field1.column, row: 6});
+      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 7) && (f3.colour === 'empty'))));
     }
     if (field2.colour === 'white')
     {
@@ -53,7 +75,8 @@ Moves = {
     //If dest. is empty, move may only be one step ahead; or two if in initial position.
     if (field2.colour === 'empty')
     {
-      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 2))));
+      let f3 = Fields.findOne({board: field1.board, column: field1.column, row: 3});
+      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 2) && (f3.colour === 'empty'))));
     }
     if (field2.colour === 'black')
     {
@@ -75,7 +98,13 @@ Moves = {
   {
     //Rook moves horizontally or vertically only, i.e. either column or row
     //must be identical.
-    return ((field1.column === field2.column) || (field1.row === field2.row));
+    if ((field1.column === field2.column) || (field1.row === field2.row))
+    {
+      //Move is allowed, if fields between start and end are empty.
+      return Moves.isEmptyStraightOrDiagonal(field1, field2);
+    }
+    //Does not match the rook move pattern, therefor not allowed.
+    return false;
   },
   allowedKnight: function(field1, field2, board)
   {
@@ -89,11 +118,17 @@ Moves = {
   },
   allowedBishop: function(field1, field2, board)
   {
-    //Bishop move diagonally, i.e. absolute difference between rows and columns
-    //of start and end point must be equal (and non-zero).
+    //Bishop moves diagonally, i.e. absolute difference between rows and columns
+    //of start and end point must be equal and non-zero.
     let rowDiff = Math.abs(field1.row - field2.row);
     let colDiff = Math.abs(field1.column.charCodeAt(0) - field2.column.charCodeAt(0));
-    return ((colDiff === rowDiff) && (rowDiff !== 0));
+    if ((colDiff === rowDiff) && (rowDiff !== 0))
+    {
+      //Move is allowed, if fields between start and end are empty.
+      return Moves.isEmptyStraightOrDiagonal(field1, field2);
+    }
+    //not allowed
+    return false;
   },
   allowedQueen: function(field1, field2, board)
   {
@@ -112,6 +147,7 @@ Moves = {
     let ca = Moves.isCastlingAttemptAllowed(field1, field2, board);
     if (ca === true)
     {
+      //TODO: Check whether fields between the pieces are empty.
       return true;
     }
     //regular move
