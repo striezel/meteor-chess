@@ -8,19 +8,7 @@ Meteor.methods({
   */
   boardInit: function() {
     console.log('Info: Performing board initialization.');
-    var newBoard = FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
-    //new board, white to move
-    var boardId = Boards.insert({toMove: 'white', created: new Date(),
-                                 castling: {white: {kingside: true, queenside: true},
-                                            black: {kingside: true, queenside: true}}
-                               });
-    var index = 0;
-    for (index = 0; index < newBoard.length; ++index)
-    {
-      newBoard[index].board = boardId;
-      Fields.insert(newBoard[index]);
-    } //for
-    return boardId;
+    return FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
   },
 
 

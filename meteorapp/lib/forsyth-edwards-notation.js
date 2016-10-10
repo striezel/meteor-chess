@@ -64,8 +64,12 @@ FEN = {
       return null;
 
     var map = fenmap();
-    var board = [];
-    var field = {};
+
+    //new board, white to move
+    var boardId = Boards.insert({toMove: 'white', created: new Date(),
+                                 castling: {white: {kingside: true, queenside: true},
+                                            black: {kingside: true, queenside: true}}
+                               });
 
     var bRow = 8;
     var i = 0;
@@ -78,7 +82,7 @@ FEN = {
         if (map.has(rows[i][j]))
         {
           var t = map.get(rows[i][j]);
-          board.push({piece: t.piece, colour: t.colour, column: bColumn, row: bRow});
+          Fields.insert({board: boardId, piece: t.piece, colour: t.colour, column: bColumn, row: bRow});
           bColumn = nextColumn(bColumn);
         } //if map has
         else if (parseInt(rows[i][j]) !== NaN)
@@ -87,15 +91,14 @@ FEN = {
           var k = 1;
           for (k = 1; k<= count; ++k)
           {
-            field = {piece: 'empty', colour: 'empty', column: bColumn, row: bRow};
-            board.push(field);
+            Fields.insert({board: boardId, piece: 'empty', colour: 'empty', column: bColumn, row: bRow});
             bColumn = nextColumn(bColumn);
           } //for k
         } //else
       } //for j
       bRow = bRow - 1;
     } //for i
-    return board;
+    return boardId;
   },
 
 
