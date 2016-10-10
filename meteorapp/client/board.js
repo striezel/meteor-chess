@@ -4,5 +4,18 @@ Template.board.created = function() {
   {
     console.log('Board is not defined, switching to board selection.');
     Router.go('boardSelection');
+    return;
   }
+  this.subscribe('boards');
 };
+
+Template.board.helpers({
+  toMove: function(){
+    let bDoc = Boards.findOne({_id: Session.get('board')});
+    if (bDoc)
+    {
+      return bDoc.toMove;
+    }
+    return null;
+  }
+});

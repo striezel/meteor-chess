@@ -27,6 +27,16 @@
       </div>
 
       <br /><br />
+      <div align="center">
+        {{#if equals toMove 'black'}}
+        <strong>Black is to move.</strong>
+        {{/if}}
+        {{#if equals 'white' toMove}}
+        <strong>White is to move.</strong>
+        {{/if}}
+      </div>
+
+      <br /><br />
 
       {{> boardCore}}
 
