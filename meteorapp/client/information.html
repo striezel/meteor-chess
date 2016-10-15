@@ -1,3 +1,10 @@
+<template name="updown">
+  <div align="right" style="display: inline-block;">
+    <span class="glyphicon glyphicon-arrow-up" onclick="window.scroll(window.scrollX, 0); return false;"> </span>
+    <span class="glyphicon glyphicon-arrow-down" onclick="window.scroll(window.scrollX, window.scrollMaxY); return false;"></span>
+  </div>
+</template>
+
 <template name="information">
   <div class="page-header">
     <a href="{{pathFor 'board'}}">
@@ -12,7 +19,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <strong>Server connection</strong>
+      <strong>Server connection</strong> {{> updown}}
     </div>
     <table class="table">
       <tbody>
@@ -61,7 +68,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <strong>Meteor</strong>
+      <strong>Meteor</strong> {{> updown}}
     </div>
     <table class="table">
       <tbody>
@@ -111,7 +118,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <strong>MongoDB</strong>
+      <strong>MongoDB</strong> {{> updown}}
     </div>
     <table class="table">
       <tbody>
@@ -153,7 +160,7 @@
 
   <div class="panel panel-default">
     <div class="panel-heading">
-      <strong>Git</strong>
+      <strong>Git</strong> {{> updown}}
     </div>
     <table class="table">
       <tbody>
@@ -193,10 +200,24 @@
     </table>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <strong>Changelog</strong> {{> updown}}
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-12">
+            {{#markdown}}{{changelog}}{{/markdown}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <a href="{{pathFor 'board'}}">
     <button class="btn btn-default col-xs-6">
       <span class="glyphicon glyphicon-step-backward"></span> Back
     </button>
   </a>
-
 </template>
