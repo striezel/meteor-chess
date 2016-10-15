@@ -86,7 +86,7 @@ FEN = {
         } //if map has
         else if (parseInt(rows[i][j]) !== NaN)
         {
-          var count = Math.max(8, Math.min(1, parseInt(rows[i][j])));
+          var count = Math.min(8, Math.max(1, parseInt(rows[i][j])));
           var k = 1;
           for (k = 1; k <= count; ++k)
           {
