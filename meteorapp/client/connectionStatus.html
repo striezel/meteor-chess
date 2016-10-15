@@ -1,0 +1,10 @@
+<template name="connectionStatus">
+  {{#unless connected}}
+  <div class="alert {{status.alertType}}" role="alert" id="connectioninfo">
+    <span id="status" class="glyphicon {{status.icon}}"
+          title="{{status.title}}"> </span>
+    <strong>Disconnected from server!</strong><br />
+    <i>Status:</i> {{status.title}}
+  </div>
+  {{/unless}}
+</template>
