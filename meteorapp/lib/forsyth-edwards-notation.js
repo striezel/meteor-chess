@@ -42,24 +42,23 @@ fenmap = function()
 }
 
 
-/* FEN: class that handles Forsyth–Edwards Notation (FEN).*/
+/* FEN: class that handles Forsyth-Edwards Notation (FEN).*/
 FEN = {
-  /* toBoard: parses a FEN and returns a two-dimensional array that can be
-              used to populate a chess board.
+  /* toBoard: parses a Forsyth-Edwards Notation (FEN) and creates a board
+              from it
 
      parameters:
-       fen - (string) a string that contains a valid Forsyth–Edwards Notation
+       fen - (string) a string that contains a valid Forsyth-Edwards Notation
              (short: FEN) for a 8x8 chess board
+
+     return value:
+       Returns a string containing the ID of the created board.
   */
   toBoard: function(fen)
   {
     //This function currently only handles the first part, i.e. the pieces on the board.
     var parts = fen.split(' ');
-    if (parts.length > 1)
-    {
-      fen = parts[0];
-    }
-    var rows = fen.split('/');
+    var rows = parts[0].split('/');
     if (rows.length < 8)
       return null;
 
@@ -89,7 +88,7 @@ FEN = {
         {
           var count = Math.max(8, Math.min(1, parseInt(rows[i][j])));
           var k = 1;
-          for (k = 1; k<= count; ++k)
+          for (k = 1; k <= count; ++k)
           {
             Fields.insert({board: boardId, piece: 'empty', colour: 'empty', column: bColumn, row: bRow});
             bColumn = nextColumn(bColumn);
@@ -98,6 +97,25 @@ FEN = {
       } //for j
       bRow = bRow - 1;
     } //for i
+
+    //Who is to move?
+    if (parts.length > 1)
+    {
+      if ((typeof parts[1] === 'string') && (parts[1].charAt(0).toLowerCase() === 'b'))
+      {
+        Boards.update({_id: boardId}, {$set: {toMove: 'black'}});
+      }
+    } //if enough data to set toMove is present
+    //parse info about castling
+    if (parts.length > 2)
+    {
+      let castling = {white: {kingside:  parts[1].indexOf('K') >= 0,
+                              queenside: parts[1].indexOf('Q') >= 0},
+                      black: {kingside:  parts[1].indexOf('k') >= 0,
+                              queenside: parts[1].indexOf('q') >= 0}};
+      Boards.update({_id: boardId}, {$set: {"castling": castling}});
+    } //if castling info is given
+
     return boardId;
   },
 
