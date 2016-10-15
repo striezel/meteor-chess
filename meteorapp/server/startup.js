@@ -18,11 +18,11 @@ if (Meteor.isServer)
       {
         console.error('Server startup: Could not get asset git-info.json');
         Info.insert({name: 'gitInfo',
-                       value: {branch:      'Git information was not found',
-                               commitDate:  'Git information was not found',
-                               description: 'Git information was not found',
-                               hashShort:   'Git information was not found',
-                               hashLong:    'Git information was not found'}
+                       value: {branch:      'Git information was not found.',
+                               commitDate:  'Git information was not found.',
+                               description: 'Git information was not found.',
+                               hashShort:   'Git information was not found.',
+                               hashLong:    'Git information was not found.'}
                      });
       } //else
     });
