@@ -72,11 +72,11 @@ FEN = {
 
     var bRow = 8;
     var i = 0;
-    for (i=0; i<8; ++i)
+    for (i = 0; i < 8; ++i)
     {
       var bColumn = 'a';
       var j = 0;
-      for (j = 0; j<rows[i].length; ++j)
+      for (j = 0; j < rows[i].length; ++j)
       {
         if (map.has(rows[i][j]))
         {
