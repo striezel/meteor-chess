@@ -25,3 +25,5 @@ minimongo@1.0.17
 session@1.1.6
 momentjs:moment
 markdown
+dispatch:mocha-phantomjs
+practicalmeteor:chai
