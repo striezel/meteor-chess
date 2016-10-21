@@ -2,7 +2,6 @@
 
 A few game-related rules are not completely implemented yet. These are:
 
-* check for empty / occupied fields before castling is performed
 * detect whether king is in check
 * detect win / loss
 
