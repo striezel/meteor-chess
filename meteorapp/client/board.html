@@ -38,6 +38,19 @@
         {{/if}}
       </div>
 
+      {{#if inCheckBlack}}
+      <br /><br />
+      <div class="alert alert-danger" role="alert" align="center">
+        <strong>Black is in check!</strong>
+      </div>
+      {{/if}}
+      {{#if inCheckWhite}}
+      <br /><br />
+      <div class="alert alert-danger" role="alert" align="center">
+        <strong>White is in check!</strong>
+      </div>
+      {{/if}}
+
       <br /><br />
 
       {{> boardCore}}

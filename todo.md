@@ -2,7 +2,6 @@
 
 A few game-related rules are not completely implemented yet. These are:
 
-* detect whether king is in check
 * detect win / loss
 
 Additionally, there are some "nice to have" features that I like to implement:

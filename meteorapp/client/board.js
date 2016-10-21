@@ -17,5 +17,11 @@ Template.board.helpers({
       return bDoc.toMove;
     }
     return null;
+  },
+  inCheckWhite: function() {
+    return Rules.isInCheck('white', Session.get('board'));
+  },
+  inCheckBlack: function() {
+    return Rules.isInCheck('black', Session.get('board'));
   }
 });

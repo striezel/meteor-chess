@@ -1,6 +1,6 @@
 /* class to check whether certain moves are legal or not */
 Moves = {
-  isEmptyStraightOrDiagonal(field1, field2)
+  isEmptyStraightOrDiagonal: function(field1, field2)
   {
     let rowDiff = field2.row - field1.row;
     let colDiff = field2.column.charCodeAt(0) - field1.column.charCodeAt(0);
