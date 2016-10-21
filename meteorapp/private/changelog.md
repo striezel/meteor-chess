@@ -1,5 +1,10 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.8 (2016-10-21)
+
+Castling is no longer allowed, if there are pieces between king
+and rook. (This rule had not been implemented before.)
+
 ## Meteor Chess, version 0.7.1 (2016-10-15)
 
 This release brings some minor improvements:

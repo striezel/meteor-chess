@@ -27,26 +27,30 @@ Moves = {
     {
       if ((field2.column === 'c') && (field2.row === 1) && (field2.piece === 'empty'))
       {
+        let freeFields = Fields.find({"board": board, piece: 'empty', row: 1, column: {$in: ['b','c','d']}});
         let boardDoc = Boards.findOne({_id: board});
-        return boardDoc.castling.white.queenside;
+        return ((freeFields.count() === 3) && boardDoc.castling.white.queenside);
       }
       if ((field2.column === 'g') && (field2.row === 1) && (field2.piece === 'empty'))
       {
+        let freeFields = Fields.find({"board": board, piece: 'empty', row: 1, column: {$in: ['f','g']}});
         let boardDoc = Boards.findOne({_id: board});
-        return boardDoc.castling.white.kingside;
+        return ((freeFields.count() === 2) && boardDoc.castling.white.kingside);
       }
     }//if white king at initial position
     else if ((field1.colour === 'black') && (field1.column === 'e') && (field1.row === 8))
     {
       if ((field2.column === 'c') && (field2.row === 8) && (field2.piece === 'empty'))
       {
+        let freeFields = Fields.find({"board": board, piece: 'empty', row: 8, column: {$in: ['b','c','d']}});
         let boardDoc = Boards.findOne({_id: board});
-        return boardDoc.castling.black.queenside;
+        return ((freeFields.count() === 3) && boardDoc.castling.black.queenside);
       }
       if ((field2.column === 'g') && (field2.row === 8) && (field2.piece === 'empty'))
       {
+        let freeFields = Fields.find({"board": board, piece: 'empty', row: 8, column: {$in: ['f','g']}});
         let boardDoc = Boards.findOne({_id: board});
-        return boardDoc.castling.black.kingside;
+        return ((freeFields.count() === 2) && boardDoc.castling.black.kingside);
       }
     }//if black king at initial position
     return false;
