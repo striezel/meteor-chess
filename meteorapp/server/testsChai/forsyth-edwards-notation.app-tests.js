@@ -6,19 +6,11 @@ describe('Forsyth-Edwards Notation tests', function () {
     //clear fields collection after each test
     Fields.remove({});
   });
-  /*
-  beforeEach(function() {
-    //clear Boards collection after each test
-    Boards.remove({});
-    //clear fields collection after each test
-    Fields.remove({});
-  });
-  */
 
   it("FEN.toBoard('<starting position>')", function () {
     //set timeout for this test to 5 seconds, because it might take a while
     this.timeout(5000);
-    //insert WWTP with synchronous call
+    //insert board with synchronous call
     var boardID = FEN.toBoard('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR');
     //ID should be a string
     expect(boardID).to.exist;
