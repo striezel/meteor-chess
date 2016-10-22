@@ -1,5 +1,5 @@
 /* Test whether method calls work as expected. */
-describe('server method tests', function () {
+describe('server method tests: board management', function () {
   afterEach(function() {
     //clear Boards collection after each test
     Boards.remove({});
@@ -91,7 +91,7 @@ describe('server method tests', function () {
 
   it("boardDelete with non-existent board ID should throw", function () {
     var deleteWrapper = function() {
-      return Meteor.call('boardDelete', 'ThisBoadIdDoesNotExist');
+      return Meteor.call('boardDelete', 'ThisBoardIdDoesNotExist');
     };
     //delete board
     expect(deleteWrapper).to.throw(Meteor.Error);
