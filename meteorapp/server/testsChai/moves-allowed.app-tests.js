@@ -135,4 +135,154 @@ describe('Moves tests', function () {
       );
     } //for
   });
+
+  it("moves of white pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4P3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['e5'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of white pawn on e2", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/8/8/4P3/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 2});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['e3', 'e4'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of white pawn with captures", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/3n1n2/4P3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['d5', 'e5', 'f5'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of black pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4p3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['e3'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of black pawn on e7", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/4p3/8/8/8/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 7});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['e6', 'e5'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of black pawn with captures", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4p3/3N1N2/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with pawn
+    let pawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(pawnDoc).to.exist;
+    expect(pawnDoc.piece).to.equal('pawn');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['d3', 'e3', 'f3'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(pawnDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
 });
