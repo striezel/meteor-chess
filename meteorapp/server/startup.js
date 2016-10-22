@@ -60,5 +60,9 @@ if (Meteor.isServer)
     {
       Meteor.call('boardInit');
     }
+
+    //indices for collections
+    Boards._ensureIndex({"created": 1});
+    Fields._ensureIndex({"board": 1});
   });
 }
