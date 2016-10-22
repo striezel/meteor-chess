@@ -30,16 +30,6 @@ Template.boardSelection.helpers({
     var i = 0;
     for (i=0; i<result.length; ++i)
     {
-    	if (result[i].toMove === 'white')
-    	{
-    	  result[i].background = '#000000';
-    	  result[i].colour = '#ffffff';
-    	}
-    	else
-    	{
-        result[i].background = '#ffffff';
-    	  result[i].colour = '#000000';
-    	}
     	//add some random chess figure
     	result[i].icon = icons[Math.floor(Math.random()*icons.length)];
     	//number

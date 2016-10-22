@@ -23,5 +23,13 @@ Template.board.helpers({
   },
   inCheckBlack: function() {
     return Rules.isInCheck('black', Session.get('board'));
+  },
+  winner: function() {
+    let bDoc = Boards.findOne({_id: Session.get('board')});
+    if (bDoc)
+    {
+      return bDoc.winner;
+    }
+    return null;
   }
 });

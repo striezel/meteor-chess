@@ -28,27 +28,34 @@
         </a>
       </div>
 
+      {{#if winner}}
       <br /><br />
-      <div align="center">
-        {{#if equals toMove 'black'}}
-        <strong>Black is to move.</strong>
-        {{/if}}
-        {{#if equals 'white' toMove}}
-        <strong>White is to move.</strong>
-        {{/if}}
+      <div class="alert alert-success" role="alert" align="center">
+        <strong>Game is over! Winner is {{winner}}.</strong>
       </div>
+      {{else}}
+        {{#if inCheckBlack}}
+        <br /><br />
+        <div class="alert alert-danger" role="alert" align="center">
+          <strong>Black is in check!</strong>
+        </div>
+        {{/if}}
+        {{#if inCheckWhite}}
+        <br /><br />
+        <div class="alert alert-danger" role="alert" align="center">
+          <strong>White is in check!</strong>
+        </div>
+        {{/if}}
 
-      {{#if inCheckBlack}}
-      <br /><br />
-      <div class="alert alert-danger" role="alert" align="center">
-        <strong>Black is in check!</strong>
-      </div>
-      {{/if}}
-      {{#if inCheckWhite}}
-      <br /><br />
-      <div class="alert alert-danger" role="alert" align="center">
-        <strong>White is in check!</strong>
-      </div>
+        <br /><br />
+        <div align="center">
+          {{#if equals toMove 'black'}}
+          <strong>Black is to move.</strong>
+          {{/if}}
+          {{#if equals 'white' toMove}}
+          <strong>White is to move.</strong>
+          {{/if}}
+        </div>
       {{/if}}
 
       <br /><br />

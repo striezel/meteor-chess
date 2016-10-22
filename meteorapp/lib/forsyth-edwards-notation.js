@@ -67,7 +67,9 @@ FEN = {
     //new board, white to move
     var boardId = Boards.insert({toMove: 'white', created: new Date(),
                                  castling: {white: {kingside: true, queenside: true},
-                                            black: {kingside: true, queenside: true}}
+                                            black: {kingside: true, queenside: true}},
+                                 check: {white: false, black: false},
+                                 winner: null
                                });
 
     var bRow = 8;

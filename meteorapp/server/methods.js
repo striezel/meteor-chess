@@ -65,6 +65,13 @@ Meteor.methods({
     }
     //find board
     let board = Boards.findOne({_id: startDoc.board});
+    if (board.winner !== null)
+    {
+      console.log('Info: Player tried to move on board ' + board._id + ', but the game is already over.');
+      throw new Meteor.Error('game-over', 'You cannot move pieces on this board.'
+                            +' The game is over, winner is ' + board.winner + '.');
+    }
+    //Is the correct player moving?
     if (board.toMove !== startDoc.colour)
     {
       console.log('Info: Player tried to move ' + startDoc.colour
@@ -74,9 +81,8 @@ Meteor.methods({
 
     let allow = Moves.allowed(startFieldID, destFieldID, startDoc.board);
     if (false === allow)
-    {
       return false;
-    }
+
     if (allow || (null === allow))
     {
       // Move is either allowed or check not implemented, so assume the player
@@ -177,6 +183,15 @@ Meteor.methods({
             Boards.update({_id: board._id}, {$set: {"castling.white.kingside": false}});
         } //if white rook moved
       } //if rook
+      // -- determine whether anyone is in check
+      let whiteCheck = Rules.isInCheck('white', board._id);
+      if (whiteCheck && board.check.white)
+        Boards.update({_id: board._id}, {$set: {winner: 'black'}});
+      Boards.update({_id: board._id}, {$set: {"check.white": whiteCheck}});
+      let blackCheck = Rules.isInCheck('black', board._id);
+      if (blackCheck && board.check.black)
+        Boards.update({_id: board._id}, {$set: {winner: 'white'}});
+      Boards.update({_id: board._id}, {$set: {"check.black": blackCheck}});
       // -- update colour that is to move
       if (board.toMove === 'white')
         Boards.update({_id: board._id}, {$set: {toMove: 'black'}});

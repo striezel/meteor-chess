@@ -2,7 +2,7 @@
 
 A few game-related rules are not completely implemented yet. These are:
 
-* detect win / loss
+* en passant
 
 Additionally, there are some "nice to have" features that I like to implement:
 
