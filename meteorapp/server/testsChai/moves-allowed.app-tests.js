@@ -58,4 +58,81 @@ describe('Moves tests', function () {
       );
     } //for
   });
+
+  it("moves of bishop", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4B3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with bishop
+    let bishopDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(bishopDoc).to.exist;
+    expect(bishopDoc.piece).to.equal('bishop');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['b1', 'c2', 'd3', 'f5', 'g6', 'h7',
+                 'a8', 'b7', 'c6', 'd5', 'f3', 'g2', 'h1'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(bishopDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of knight", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4N3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with rook
+    let kDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(kDoc).to.exist;
+    expect(kDoc.piece).to.equal('knight');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['d2', 'f2', 'g3', 'g5', 'f6', 'd6', 'c5', 'c3'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(kDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
+
+  it("moves of rook", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('8/8/8/8/4R3/8/8/8');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with rook
+    let rDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(rDoc).to.exist;
+    expect(rDoc.piece).to.equal('rook');
+    //get all other fields
+    let fieldArray = Fields.find({board: boardID}).fetch();
+    expect(fieldArray).to.have.lengthOf(64);
+    //list of fields with possible moves
+    let moves = ['e1', 'e2', 'e3', 'e5', 'e6', 'e7', 'e8',
+                 'a4', 'b4', 'c4', 'd4', 'f4', 'g4', 'h4'];
+    let i = 0;
+    for (i = 0; i < 64; ++i)
+    {
+      expect(Moves.allowed(rDoc._id, fieldArray[i]._id, boardID)).to.equal(
+        moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
+      );
+    } //for
+  });
 });
