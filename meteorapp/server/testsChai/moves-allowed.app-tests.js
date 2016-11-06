@@ -211,6 +211,29 @@ describe('Moves tests', function () {
     } //for
   });
 
+  it("en passant capture of white pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('k6K/8/8/8/4Pp2/8/8/8 b - e3');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with white pawn
+    let whitePawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(whitePawnDoc).to.exist;
+    expect(whitePawnDoc.piece).to.equal('pawn');
+    expect(whitePawnDoc.colour).to.equal('white');
+    //get field with black pawn
+    let blackPawnDoc = Fields.findOne({board: boardID, column: 'f', row: 4});
+    expect(blackPawnDoc).to.exist;
+    expect(blackPawnDoc.piece).to.equal('pawn');
+    expect(blackPawnDoc.colour).to.equal('black');
+    //get e3
+    let e3 = Fields.findOne({board: boardID, column: 'e', row: 3});
+    //en passant move should be allowed
+    expect(Moves.allowed(blackPawnDoc._id, e3._id, boardID)).to.equal(true);
+  });
+
   it("moves of black pawn", function () {
     //set timeout for this test to 5 seconds, because it might take a while
     this.timeout(5000);
@@ -284,5 +307,28 @@ describe('Moves tests', function () {
         moves.indexOf(fieldArray[i].column+fieldArray[i].row) !== -1
       );
     } //for
+  });
+
+  it("en passant capture of black pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('k6K/8/8/4pP2/8/8/8/8 w - e6');
+    //ID should be a string
+    expect(boardID).to.be.a('string');
+    //get field with white pawn
+    let whitePawnDoc = Fields.findOne({board: boardID, column: 'f', row: 5});
+    expect(whitePawnDoc).to.exist;
+    expect(whitePawnDoc.piece).to.equal('pawn');
+    expect(whitePawnDoc.colour).to.equal('white');
+    //get field with black pawn
+    let blackPawnDoc = Fields.findOne({board: boardID, column: 'e', row: 5});
+    expect(blackPawnDoc).to.exist;
+    expect(blackPawnDoc.piece).to.equal('pawn');
+    expect(blackPawnDoc.colour).to.equal('black');
+    //get e6
+    let e6 = Fields.findOne({board: boardID, column: 'e', row: 6});
+    //en passant move should be allowed
+    expect(Moves.allowed(whitePawnDoc._id, e6._id, boardID)).to.equal(true);
   });
 });

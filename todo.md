@@ -1,10 +1,8 @@
 # To do list for Meteor Chess
 
-A few game-related rules are not completely implemented yet. These are:
+All game-related rules are implemented yet.
 
-* en passant
-
-Additionally, there are some "nice to have" features that I like to implement:
+However, there are some "nice to have" features that I like to implement:
 
 * record all moves on a board to allow later replay
 * display time that is required for current move

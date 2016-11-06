@@ -63,7 +63,12 @@ Moves = {
     if (field2.colour === 'empty')
     {
       let f3 = Fields.findOne({board: field1.board, column: field1.column, row: 6});
-      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 7) && (f3.colour === 'empty'))));
+      if ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 7) && (f3.colour === 'empty'))))
+        return true;
+      //It may also be an en passant move.
+      let boardDoc = Boards.findOne({_id: board});
+      return ((colDiff === 1) && (rowDiff === 1)
+           && (field2.row === boardDoc.enPassant.row) && (field2.column === boardDoc.enPassant.column));
     }
     if (field2.colour === 'white')
     {
@@ -80,7 +85,12 @@ Moves = {
     if (field2.colour === 'empty')
     {
       let f3 = Fields.findOne({board: field1.board, column: field1.column, row: 3});
-      return ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 2) && (f3.colour === 'empty'))));
+      if ((colDiff === 0) && ((rowDiff === 1) || ((rowDiff === 2) && (field1.row === 2) && (f3.colour === 'empty'))))
+        return true;
+      //It may also be an en passant move.
+      let boardDoc = Boards.findOne({_id: board});
+      return ((colDiff === 1) && (rowDiff === 1)
+           && (field2.row === boardDoc.enPassant.row) && (field2.column === boardDoc.enPassant.column));
     }
     if (field2.colour === 'black')
     {

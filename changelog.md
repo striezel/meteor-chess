@@ -1,5 +1,9 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.11 (2016-11-06)
+
+Pawns can now be captured en passant.
+
 ## Meteor Chess, version 0.10 (2016-10-22)
 
 The application can now detect win / loss of a game.

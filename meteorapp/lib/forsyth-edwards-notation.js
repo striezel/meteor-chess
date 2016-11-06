@@ -69,6 +69,7 @@ FEN = {
                                  castling: {white: {kingside: true, queenside: true},
                                             black: {kingside: true, queenside: true}},
                                  check: {white: false, black: false},
+                                 enPassant: {row: null, column: null},
                                  winner: null
                                });
 
@@ -111,12 +112,23 @@ FEN = {
     //parse info about castling
     if (parts.length > 2)
     {
-      let castling = {white: {kingside:  parts[1].indexOf('K') >= 0,
-                              queenside: parts[1].indexOf('Q') >= 0},
-                      black: {kingside:  parts[1].indexOf('k') >= 0,
-                              queenside: parts[1].indexOf('q') >= 0}};
+      let castling = {white: {kingside:  parts[2].indexOf('K') >= 0,
+                              queenside: parts[2].indexOf('Q') >= 0},
+                      black: {kingside:  parts[2].indexOf('k') >= 0,
+                              queenside: parts[2].indexOf('q') >= 0}};
       Boards.update({_id: boardId}, {$set: {"castling": castling}});
     } //if castling info is given
+    //parse info about en passant move
+    if (parts.length > 3)
+    {
+      let ep_col = parts[3].charAt(0);
+      let ep_row = parseInt(parts[3].charAt(1));
+      let regEx = /^[a-h]$/;
+      if (regEx.test(ep_col) && ((ep_row === 3) || (ep_row === 6)))
+      {
+        Boards.update({_id: boardId}, {$set: {enPassant: {column: ep_col, row: ep_row}}});
+      }
+    } //if en passant info is given
 
     return boardId;
   },
@@ -253,6 +265,11 @@ FEN = {
       fenString = fenString + " " + castlingString;
     else
       fenString = fenString + " -";
+    //en passant
+    if (boardDoc.enPassant.row === null)
+      fenString = fenString + " -";
+    else
+      fenString = fenString + " " + boardDoc.enPassant.column + boardDoc.enPassant.row;
     //return here, because other data is not implemeted yet
     return fenString;
   }

@@ -102,6 +102,33 @@ describe('server method tests: perform moves', function () {
     expect(a8AfterMove.colour).to.equal('white');
   });
 
+  it("performMove(...) with en passant capture of white pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('k6K/8/8/8/4Pp2/8/8/8 b - e3');
+    //get field with white pawn
+    let whitePawnDoc = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(whitePawnDoc).to.exist;
+    expect(whitePawnDoc.piece).to.equal('pawn');
+    expect(whitePawnDoc.colour).to.equal('white');
+    //get field with black pawn
+    let blackPawnDoc = Fields.findOne({board: boardID, column: 'f', row: 4});
+    expect(blackPawnDoc).to.exist;
+    expect(blackPawnDoc.piece).to.equal('pawn');
+    expect(blackPawnDoc.colour).to.equal('black');
+    //get e3
+    let e3 = Fields.findOne({board: boardID, column: 'e', row: 3});
+    //en passant move should be performed
+    let result = Meteor.call('performMove', blackPawnDoc._id, e3._id, 'queen');
+    expect(result).to.equal(true);
+    //e4 should not contain white pawn anymore
+    let e4 = Fields.findOne({board: boardID, column: 'e', row: 4});
+    expect(e4).to.exist;
+    expect(e4.piece).to.equal('empty');
+    expect(e4.colour).to.equal('empty');
+  });
+
   it("performMove(...) with black pawn promotion to queen", function () {
     //set timeout for this test to 5 seconds, because it might take a while
     this.timeout(5000);
@@ -140,5 +167,32 @@ describe('server method tests: perform moves', function () {
     let a1AfterMove = Fields.findOne({board: boardId, column: 'a', row: 1});
     expect(a1AfterMove.piece).to.equal('knight');
     expect(a1AfterMove.colour).to.equal('black');
+  });
+
+  it("performMove(...) with en passant capture of black pawn", function () {
+    //set timeout for this test to 5 seconds, because it might take a while
+    this.timeout(5000);
+    //insert board with synchronous call
+    var boardID = FEN.toBoard('k6K/8/8/4pP2/8/8/8/8 w - e6');
+    //get field with white pawn
+    let whitePawnDoc = Fields.findOne({board: boardID, column: 'f', row: 5});
+    expect(whitePawnDoc).to.exist;
+    expect(whitePawnDoc.piece).to.equal('pawn');
+    expect(whitePawnDoc.colour).to.equal('white');
+    //get field with black pawn
+    let blackPawnDoc = Fields.findOne({board: boardID, column: 'e', row: 5});
+    expect(blackPawnDoc).to.exist;
+    expect(blackPawnDoc.piece).to.equal('pawn');
+    expect(blackPawnDoc.colour).to.equal('black');
+    //get e6
+    let e6 = Fields.findOne({board: boardID, column: 'e', row: 6});
+    //en passant move should be performed
+    let result = Meteor.call('performMove', whitePawnDoc._id, e6._id, 'queen');
+    expect(result).to.equal(true);
+    //e5 should not contain white pawn anymore
+    let e5 = Fields.findOne({board: boardID, column: 'e', row: 5});
+    expect(e5).to.exist;
+    expect(e5.piece).to.equal('empty');
+    expect(e5.colour).to.equal('empty');
   });
 });

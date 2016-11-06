@@ -91,10 +91,13 @@ Meteor.methods({
       Fields.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
       // -- remove piece in start field
       Fields.update({_id: startFieldID}, {$set: {piece: 'empty', colour: 'empty'}});
-      // -- check for promotion
+      // holds en passant data for next move
+      let enPassantData = {column: null, row: null};
+      // -- check for special moves of pawn pieces
       if (startDoc.piece === 'pawn')
       {
-        //sanitize promotion piece
+        // check for promotion
+        // -- sanitize promotion piece
         switch(promoteTo)
         {
           case 'tower':
@@ -108,17 +111,39 @@ Meteor.methods({
           default:
                promoteTo = 'queen';
         } //switch
-        //check for promotion of white pawn
+        // -- check for promotion of white pawn
         if ((startDoc.colour === 'white') && (destDoc.row === 8))
         {
           Fields.update({_id: destFieldID}, {$set: {piece: promoteTo}});
           console.log('Info: Promoted white pawn on ' + destDoc.column + destDoc.row + ' to ' + promoteTo + '.');
         }
+        // -- check for promotion of black pawn
         else if ((startDoc.colour === 'black') && (destDoc.row === 1))
         {
           Fields.update({_id: destFieldID}, {$set: {piece: promoteTo}});
           console.log('Info: Promoted black pawn on ' + destDoc.column + destDoc.row + ' to ' + promoteTo + '.');
         }
+        // check for en passant capture
+        else if ((destDoc.row === board.enPassant.row) && (destDoc.column === board.enPassant.column))
+        {
+          let colDiff = Math.abs(startDoc.column.charCodeAt(0) - destDoc.column.charCodeAt(0));
+          let rowDiff = Math.abs(destDoc.row - startDoc.row);
+          if ((colDiff === 1) && (rowDiff === 1))
+          {
+            //remove captured pawn
+            let removeRow = destDoc.row;
+            if (removeRow === 3)
+              removeRow = 4;
+            else
+              removeRow = 5;
+            Fields.update({"board": startDoc.board, column: destDoc.column, row: removeRow}, {$set: {piece: 'empty', colour: 'empty'}});
+          }
+        } //if en passant field is destination
+        //check whether en passant capture is possible in next move
+        if ((startDoc.colour === 'white') && (startDoc.row === 2) && (destDoc.row === 4))
+          enPassantData = {column: startDoc.column, row: 3};
+        else if ((startDoc.colour === 'black') && (startDoc.row === 7) && (destDoc.row === 5))
+          enPassantData = {column: startDoc.column, row: 6};
       }//if pawn
       // -- check for castling move
       if (startDoc.piece === 'king')
@@ -183,6 +208,8 @@ Meteor.methods({
             Boards.update({_id: board._id}, {$set: {"castling.white.kingside": false}});
         } //if white rook moved
       } //if rook
+      // -- update en passant data
+      Boards.update({_id: board._id}, {$set: {"enPassant": enPassantData}});
       // -- determine whether anyone is in check
       let whiteCheck = Rules.isInCheck('white', board._id);
       if (whiteCheck && board.check.white)
