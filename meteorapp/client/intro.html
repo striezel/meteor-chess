@@ -11,36 +11,21 @@
           Skip introduction <span class="glyphicon glyphicon-chevron-right"> </span>
         </a>
       </div>
-      <div class="col-xs-12">
+      <div class="col-xs-12" align="justify">
       Welcome to Meteor Chess!
       <br /><br />
       This web application allows you to play
       <a href="https://en.wikipedia.org/wiki/Chess" target="_blank">chess</a>
-      with another player. Pieces are moved by first clicking on the piece that
-      shall be moved and then clicking on the field where the piece should move.
-      If the move is legal according to the chess rule, the piece will be moved
-      and the other player is to move. Fields that are selected for the move are
-      highlighted in green.<br />
-      If you accidentally selected the wrong piece to move, just click that piece
-      again and the selection will be reset, so that another piece can be moved.
-      Here the game deliberately departs from the rule provided by the FIDE
-      (i.e. the World Chess Federation), which states that a piece that has been
-      touched by the player has to be moved. The reason is that on some devices
-      like tablets it may sometimes be a bit hard to click/touch the correct
-      field.
+      with another player. If this is your first time using Meteor Chess, we
+      recommend you take the short introduction to learn the basics of how to
+      use this application. Otherwise you can
+      <a href="{{pathFor 'boardSelection'}}">skip the introduction</a>.
       <br /><br />
-      Apart from that the normal chess rules apply.<br />
-      <a href="https://en.wikipedia.org/wiki/Castling" target="_blank">Castling</a>
-      is initiated by moving the king two fields into the direction of the tower
-      that shall be part of the castling move. For example, moving the white king
-      from e1 to g1 initiates kingside castling, and moving the white king from
-      e1 to c1 initiates queenside castling. The corresponding moves apply for
-      the black king.
+      If you decide to skip the introduction now, you can always return to it
+      later on.
       <br /><br />
-      That's all for the introduction, have fun.
-      <br /><br />
-      <a href="{{pathFor 'boardSelection'}}" class="btn btn-default" id="next">
-        Go on! <span class="glyphicon glyphicon-chevron-right"> </span>
+      <a href="{{pathFor 'introMoving'}}" class="btn btn-default" id="next">
+        Go on with introduction <span class="glyphicon glyphicon-chevron-right"> </span>
       </a>
       </div>
     </div>

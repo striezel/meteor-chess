@@ -1,5 +1,10 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.12 (2016-11-06)
+
+An introduction was added to the application to show new players the basics of
+the application.
+
 ## Meteor Chess, version 0.11 (2016-11-06)
 
 Pawns can now be captured en passant.
