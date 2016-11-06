@@ -1,4 +1,4 @@
-/* Test whether method calls work as expected. */
+/* Test whether board-related method calls work as expected. */
 describe('server method tests: board management', function () {
   afterEach(function() {
     //clear Boards collection after each test
