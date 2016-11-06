@@ -24,6 +24,5 @@ insecure@1.0.7
 minimongo@1.0.18
 session@1.1.7
 momentjs:moment
-markdown@1.0.11
 dispatch:mocha-phantomjs
 practicalmeteor:chai

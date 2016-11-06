@@ -1,5 +1,9 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.13 (2016-11-06)
+
+The changelog was removed from the information page.
+
 ## Meteor Chess, version 0.12 (2016-11-06)
 
 An introduction was added to the application to show new players the basics of

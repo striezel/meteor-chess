@@ -109,11 +109,5 @@ Template.information.helpers({
     if (undefined === git.value.commitDate)
       git.value.commitDate = 'unknown';
     return git.value;
-  },
-  changelog: function() {
-    var changes = Info.findOne({name: 'changelog'});
-    if (!changes)
-      return "Changelog information was not found!";
-    return changes.value;
   }
 });

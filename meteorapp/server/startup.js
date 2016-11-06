@@ -26,19 +26,6 @@ if (Meteor.isServer)
                      });
       } //else
     });
-    //get changelog.md, if it exists
-    Assets.getText('changelog.md', function(err, result) {
-      if (!err)
-      {
-        Info.insert({name: 'changelog', value: result.trim()});
-      } //if
-      else
-      {
-        console.error('Server startup: Could not get asset changelog.md! ' + err.reason);
-        Info.insert({name: 'changelog',
-                     value: 'Changelog information was not found.'});
-      } //else
-    });
     //try to get MongoDB server status via raw database
     var rawDB = Info.rawDatabase();
     rawDB.eval('db.serverStatus()', Meteor.bindEnvironment(function(err, result){
