@@ -19,6 +19,19 @@
       e1 to c1 initiates queenside castling. The corresponding moves apply for
       the black king.
       <br /><br />
+      The animation below shows the steps for kingside and queenside castling.
+      <br /><br />
+      <table style="border: 1px solid #000; font-size: {{settings_em}}em;" align="center">
+        <tr height="{{settings_size}}" style="border: 1px solid #000">
+        {{#each fields}}
+          <td width="{{settings_size}}" align="center" id="field_{{_id}}"
+            style="border: 1px solid #000; color: {{colour}}; background-color: {{background}};">
+          <span class="glyphicon glyphicon-{{piece}}"> </span>
+          </td>
+        {{/each}}
+        </tr>
+      </table>
+      <br /><br />
       That's all for the introduction, have fun.
       <br /><br />
       <a href="{{pathFor 'boardSelection'}}" class="btn btn-default" id="next">
