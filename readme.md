@@ -84,7 +84,7 @@ out source code:
     # start container based on that image and pass port 3000 through
     docker run -d -p 3000:3000 --net=host chessapp
 
-After that the Meteor application can be accessed in a web brwoser via
+After that the Meteor application can be accessed in a web browser via
 <http://localhost:3000>. This may take a few seconds or up to a minute, because
 the Meteor application performs some initialization tasks during the first
 start. The application can only be used after that is done.
