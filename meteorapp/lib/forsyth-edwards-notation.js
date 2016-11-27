@@ -270,7 +270,7 @@ FEN = {
       fenString = fenString + " -";
     else
       fenString = fenString + " " + boardDoc.enPassant.column + boardDoc.enPassant.row;
-    //return here, because other data is not implemeted yet
+    //return here, because other data is not implemented yet
     return fenString;
   }
 };
