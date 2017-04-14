@@ -17,7 +17,12 @@ then
 fi
 
 # get meteor executable
-METEOR=meteor
+METEOR=$(which meteor)
+if [[ -z $METEOR ]]
+then
+  METEOR=/usr/bin/meteor
+fi
+
 if [[ ! -x $METEOR ]]
 then
   METEOR=~/.meteor/meteor
