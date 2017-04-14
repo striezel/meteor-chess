@@ -14,12 +14,17 @@ where the source code has been checked out by typing
 
     curl https://install.meteor.com/ | sh
 
-After the installation is through, type
+After the installation is through, type the following commands
 
+    # change to application directory
     cd meteorapp/
+    # install required NPM packages (babel-runtime and meteor-stubs)
+    meteor npm install
+    # finally start the application
     meteor run
 
-to change to the application directory and start the Meteor application.
+to change to the application directory, install the required node packages for
+the application and start the Meteor application.
 The application can be accessed in a web browser via <http://localhost:3000>.
 
 ### Docker container
@@ -92,7 +97,7 @@ start. The application can only be used after that is done.
 
 ## Copyright and Licensing
 
-Copyright 2016  Dirk Stolle
+Copyright 2016, 2017  Dirk Stolle
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
