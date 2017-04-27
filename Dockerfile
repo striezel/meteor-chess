@@ -1,7 +1,14 @@
 # This Dockerfile will set up a Debian 8-based container that is able to
 # run the Meteor chess application.
 #
-# Version 0.02
+# Version 0.03
+#
+# History
+# -------
+#
+# version 0.03 - fix locale setting problem with MongoDB
+# version 0.02 - allow Meteor 1.4.2.1 and later to run as superuser in Docker
+# version 0.01 - initial version
 
 FROM debian:8
 MAINTAINER Dirk Stolle <striezel-dev@web.de>
@@ -9,8 +16,19 @@ MAINTAINER Dirk Stolle <striezel-dev@web.de>
 # Packages should be up to date.
 RUN apt-get update && apt-get upgrade -y
 
-# install curl
-RUN apt-get install -y curl
+# install curl, locales and grep
+RUN apt-get install -y curl locales grep
+
+# set locale: required for MongoDB
+# -- enable generation of en_US and en_GB locales
+RUN cat /usr/share/i18n/SUPPORTED | grep en_GB >> /etc/locale.gen
+RUN cat /usr/share/i18n/SUPPORTED | grep en_US >> /etc/locale.gen
+# -- run locale generation + list all locales
+RUN locale-gen en_GB.UTF-8 en_US.UTF-8 && locale -a
+# -- check whether there is an en_GB locale
+RUN locale -a | grep en_GB
+# -- set locale-related environment variables
+RUN update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
 
 # install Meteor
 RUN curl https://install.meteor.com/ | sh
