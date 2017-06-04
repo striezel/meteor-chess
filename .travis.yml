@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "4"
+# We need sudo to create the global meteor script in /usr/bin/meteor during
+# the installation of Meteor.
+sudo: true
+dist: trusty
+cache:
+  directories:
+    - ".meteor"
+install:
+  - curl https://install.meteor.com/ | sh
+script:
+  - cd meteorapp
+  - meteor npm install
+  - ./tests.sh
+# notifications:
+#   email: false
