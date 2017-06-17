@@ -20,7 +20,6 @@ shell-server@0.2.3            # Server-side component of the `meteor shell` comm
 
 twbs:bootstrap
 iron:router
-insecure@1.0.7
 minimongo@1.2.0
 session@1.1.7
 momentjs:moment
