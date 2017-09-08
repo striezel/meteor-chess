@@ -87,7 +87,7 @@ FEN = {
           Fields.insert({board: boardId, piece: t.piece, colour: t.colour, column: bColumn, row: bRow});
           bColumn = nextColumn(bColumn);
         } //if map has
-        else if (parseInt(rows[i][j]) !== NaN)
+        else if (!isNaN(parseInt(rows[i][j])))
         {
           var count = Math.min(8, Math.max(1, parseInt(rows[i][j])));
           var k = 1;
@@ -155,8 +155,10 @@ FEN = {
 
     let emptyCount = 0;
     let fenString = "";
+    let r = 8;
     for (r = 8; r >= 1; --r)
     {
+      let c = 'a';
       for (c = 'a'; c <= 'h'; c = String.fromCharCode(c.charCodeAt(0)+1))
       {
         let fieldDoc = Fields.findOne({board: boardId, column: c, row: r});
