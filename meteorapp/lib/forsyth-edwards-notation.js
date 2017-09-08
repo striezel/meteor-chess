@@ -78,8 +78,7 @@ FEN = {
     for (i = 0; i < 8; ++i)
     {
       var bColumn = 'a';
-      var j = 0;
-      for (j = 0; j < rows[i].length; ++j)
+      for (let j = 0; j < rows[i].length; ++j)
       {
         if (map.has(rows[i][j]))
         {
@@ -90,8 +89,7 @@ FEN = {
         else if (!isNaN(parseInt(rows[i][j])))
         {
           var count = Math.min(8, Math.max(1, parseInt(rows[i][j])));
-          var k = 1;
-          for (k = 1; k <= count; ++k)
+          for (let k = 1; k <= count; ++k)
           {
             Fields.insert({board: boardId, piece: 'empty', colour: 'empty', column: bColumn, row: bRow});
             bColumn = nextColumn(bColumn);
@@ -155,11 +153,9 @@ FEN = {
 
     let emptyCount = 0;
     let fenString = "";
-    let r = 8;
-    for (r = 8; r >= 1; --r)
+    for (let r = 8; r >= 1; --r)
     {
-      let c = 'a';
-      for (c = 'a'; c <= 'h'; c = String.fromCharCode(c.charCodeAt(0)+1))
+      for (let c = 'a'; c <= 'h'; c = String.fromCharCode(c.charCodeAt(0)+1))
       {
         let fieldDoc = Fields.findOne({board: boardId, column: c, row: r});
         if (fieldDoc.piece === 'empty')

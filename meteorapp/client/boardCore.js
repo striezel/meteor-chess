@@ -56,8 +56,7 @@ Template.boardCore.events({
 Template.boardCore.helpers({
   rows: function(){
     var res = [];
-    var i = 8;
-    for (i = 8; i>= 1; --i)
+    for (let i = 8; i>= 1; --i)
     {
       let data = Fields.find({row: i, board: Session.get('board')}, {sort: {column: 1}});
       let f = data.fetch();
@@ -65,10 +64,9 @@ Template.boardCore.helpers({
     } //for
 
     var light = true;
-    for(i=0; i<8; ++i)
+    for(let i = 0; i < 8; ++i)
     {
-      var j;
-      for (j=0; j<res[i].fields.length; ++j)
+      for (let j = 0; j < res[i].fields.length; ++j)
       {
         //determine background colour of field
         if (light)
