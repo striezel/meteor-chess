@@ -1,11 +1,12 @@
 # This Dockerfile will set up a Debian 8-based container that is able to
 # run the Meteor chess application.
 #
-# Version 0.03
+# Version 0.04
 #
 # History
 # -------
 #
+# version 0.04 - add bzip2 and tar packages for PhantomJS
 # version 0.03 - fix locale setting problem with MongoDB
 # version 0.02 - allow Meteor 1.4.2.1 and later to run as superuser in Docker
 # version 0.01 - initial version
@@ -29,6 +30,9 @@ RUN locale-gen en_GB.UTF-8 en_US.UTF-8 && locale -a
 RUN locale -a | grep en_GB
 # -- set locale-related environment variables
 RUN update-locale LC_ALL=en_GB.UTF-8 LANG=en_GB.UTF-8
+
+# add bzip2 and tar for phantomjs test (dispatch:phantomjs-tests) extraction
+RUN apt-get install -y tar bzip2
 
 # install Meteor
 RUN curl https://install.meteor.com/ | sh
