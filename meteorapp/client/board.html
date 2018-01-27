@@ -8,7 +8,7 @@
     <div class="panel-body">
       <div align="left" class="col-xs-4 col-md-2">
         <a href="{{pathFor 'boardSelection'}}" class="btn btn-default col-xs-12">
-          <span class="glyphicon glyphicon-chevron-left"> </span> Back
+          <span class="glyphicon glyphicon-chevron-left"> </span> Back to list
         </a>
       </div>
 
@@ -62,11 +62,15 @@
 
       {{> boardCore}}
 
-      <br /><br />
+      <br style="clear: both;" />
 
-      <a href="{{pathFor 'boardDelete'}}" class="btn btn-danger">
-        <span class="glyphicon glyphicon-trash"> </span> Delete this board
-      </a>
+      <div style="height: 1.5em;"></div>
+
+      <div align="center">
+        <a href="{{pathFor 'boardDelete'}}" class="btn btn-danger">
+          <span class="glyphicon glyphicon-trash"> </span> Delete this board
+        </a>
+      </div>
     </div>
   </div>
 </template>
