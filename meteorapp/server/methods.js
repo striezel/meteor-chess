@@ -87,6 +87,19 @@ Meteor.methods({
     {
       // Move is either allowed or check not implemented, so assume the player
       // does a correct move.
+
+      // Handle counter for fifty move rule.
+      if ((startDoc.piece === 'pawn') || (destDoc.piece !== 'empty'))
+      {
+        // Pawn has been moved or piece will be captured: reset counter.
+        Boards.update({_id: board._id}, {$set: {"halfmovesFifty": 0}});
+      }
+      else
+      {
+        // No pawn move or capture, increase counter.
+        Boards.update({_id: board._id}, {$set: {"halfmovesFifty": board.halfmovesFifty + 1}});
+      }
+
       // -- "copy" piece to destination field
       Fields.update({_id: destFieldID}, {$set: {piece: startDoc.piece, colour: startDoc.colour}});
       // -- remove piece in start field

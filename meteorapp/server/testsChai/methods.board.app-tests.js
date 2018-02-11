@@ -26,6 +26,8 @@ describe('server method tests: board management', function () {
     expect(boardDoc.castling.white.queenside).to.equal(true);
     expect(boardDoc.castling.black.kingside).to.equal(true);
     expect(boardDoc.castling.black.queenside).to.equal(true);
+    // ... and zero moves under 50 move rule
+    expect(boardDoc.halfmovesFifty).to.equal(0);
     // ... and there is no winner yet
     expect(boardDoc.winner).to.equal(null);
     // ... and no checks either

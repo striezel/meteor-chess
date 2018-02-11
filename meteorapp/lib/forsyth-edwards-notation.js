@@ -127,6 +127,19 @@ FEN = {
       }
     } // if en passant info is given
 
+    // parse number of halfmoves under 50 move rule
+    if (parts.length > 4)
+    {
+      let val = parseInt(parts[4]);
+      if (!isNaN(val) && (val < 0))
+        Boards.update({_id: boardId}, {$set: {"halfmovesFifty": val}});
+      else
+        Boards.update({_id: boardId}, {$set: {"halfmovesFifty": 0}});
+    }
+    else
+      // No information, so let's start with zero here.
+      Boards.update({_id: boardId}, {$set: {"halfmovesFifty": 0}});
+
     return boardId;
   },
 
@@ -267,6 +280,8 @@ FEN = {
       fenString = fenString + " -";
     else
       fenString = fenString + " " + boardDoc.enPassant.column + boardDoc.enPassant.row;
+    // halfmoves for 50 move rule
+    fenString = fenString + " " + boardDoc.halfmovesFifty;
     // Return here, because other data is not implemented yet.
     return fenString;
   }
