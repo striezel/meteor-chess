@@ -9,19 +9,19 @@ function castlingAnimInterval()
 var castlingIntroId = null;
 
 Template.introCastling.created = function () {
-  //set interval for animation  
+  // set interval for animation
   castlingIntroId = Meteor.setInterval(castlingAnimInterval, 1250);
 };
 
 Template.introCastling.destroyed = function () {
-  //clear interval  
+  // clear interval
   Meteor.clearInterval(castlingIntroId);
 };
 
 Template.introCastling.helpers({
   fields: function(){
     let castlingSteps = [
-      //default position
+      // default position
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -32,7 +32,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //default position, king selected
+      // default position, king selected
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -43,7 +43,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //default position, king + target selected
+      // default position, king + target selected
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -54,7 +54,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //position after queenside castling
+      // position after queenside castling
       [
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -65,7 +65,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //default position
+      // default position
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -76,7 +76,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //default position, king selected
+      // default position, king selected
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -87,7 +87,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#999999'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //default position, king + target selected
+      // default position, king + target selected
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -98,7 +98,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#5cb85c'},
         {piece: 'tower', colour: 'white', background: '#cccccc'}
       ],
-      //position after kingside castling
+      // position after kingside castling
       [
         {piece: 'tower', colour: 'white', background: '#999999'},
         {piece: 'empty', colour: 'empty', background: '#cccccc'},
@@ -110,7 +110,7 @@ Template.introCastling.helpers({
         {piece: 'empty', colour: 'empty', background: '#cccccc'}
       ]
     ];
-    
+
     if (Session.equals('step', undefined)
       || (Session.get('step') >= castlingSteps.length) || (Session.get('step') < 0))
       Session.set('step', 0);

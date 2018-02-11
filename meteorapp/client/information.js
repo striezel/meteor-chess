@@ -4,7 +4,7 @@ Template.information.created = function() {
 
 Template.information.events({
   'click [id="tryconnect"], touchend [id="tryconnect"]': function(event, template){
-    //try reconnect
+    // try reconnect
     Meteor.reconnect();
   }
 });
@@ -36,11 +36,11 @@ Template.information.helpers({
       default:
            conn.description = "unknown ('" + status.status + "')";
            break;
-    } //switch
+    } // switch
     return conn;
   },
   meteorRelease: function() {
-    /* get Meteor release version and make it lower case, because a typical
+    /* Get Meteor release version and make it lower case, because a typical
        output is "METEOR@1.3.5.1", but we want a nicer version ("Meteor@...").
     */
     return Meteor.release.substring(0,1)
@@ -72,35 +72,35 @@ Template.information.helpers({
     return moment.duration(moment()-moment(start.value)).humanize();
   },
   npmMongoModuleVersion: function() {
-    //get value from collection for status
+    // get value from collection for status
     var ver = Info.findOne({name: 'npmMongoModuleVersion'});
     if (!ver)
       return "Error while querying version";
     return ver.value;
   },
   mongoHost: function() {
-    //get value from status collection
+    // get value from status collection
     var host = Info.findOne({name: 'mongoHost'});
     if (!host)
       return "Error while querying the host";
     return host.value;
   },
   mongoVersion: function() {
-    //get value from status collection
+    // get value from status collection
     var mVer = Info.findOne({name: 'mongoVersion'});
     if (!mVer)
       return "Error while querying MongoDB version";
     return mVer.value;
   },
   mongoEngine: function() {
-    //get value from status collection
+    // get value from status collection
     var eng = Info.findOne({name: 'mongoEngine'});
     if (!eng)
       return "Error while querying the storage engine";
     return eng.value;
   },
   gitInfo: function() {
-    //get value from collection for status
+    // get value from collection for status
     var git = Info.findOne({name: 'gitInfo'});
     if (!git)
       return {branch: 'unknown', description: 'unknown',

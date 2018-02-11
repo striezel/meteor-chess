@@ -8,30 +8,30 @@ Template.boardCore.events({
     if (event.currentTarget.id.startsWith('field_'))
     {
       let fieldID = event.currentTarget.id.substr(6);
-      //If user clicked start field, set start field ID.
+      // If user clicked start field, set start field ID.
       if (Session.equals('start', undefined))
       {
         let dbField = Fields.findOne({_id: fieldID, board: Session.get('board')});
         if (dbField && dbField.piece !== 'empty')
           Session.set('start', fieldID);
       }
-      //If user clicked start field again, reset start field.
+      // If user clicked start field again, reset start field.
       else if (Session.equals('start', fieldID))
       {
         Session.set('start', undefined);
-        //... and reset end field, too.
+        // ... and reset end field, too.
         Session.set('end', undefined);
       }
-      //If user clicked end field again, reset end field.
+      // If user clicked end field again, reset end field.
       else if (Session.equals('end', fieldID))
       {
         Session.set('end', undefined);
       }
-      //Otherwise field must be end field.
+      // Otherwise field must be end field.
       else if (!Session.equals('start', undefined))
       {
         Session.set('end', fieldID);
-        //try to perform move
+        // try to perform move
         Meteor.call('performMove', Session.get('start'), Session.get('end'), Session.get('promotion'), function(err, result){
           if (err)
           {
@@ -39,7 +39,7 @@ Template.boardCore.events({
           }
           else if (result)
           {
-            //reset start + end to allow next move
+            // reset start + end to allow next move
             Session.set('end', undefined);
             Session.set('start', undefined);
           }
@@ -48,8 +48,8 @@ Template.boardCore.events({
             alert('Move could not be performed, because it is against the rules.');
           }
         });
-      } //else (end field)
-    } //if
+      } // else (end field)
+    } // if
   }
 });
 
@@ -61,14 +61,14 @@ Template.boardCore.helpers({
       let data = Fields.find({row: i, board: Session.get('board')}, {sort: {column: 1}});
       let f = data.fetch();
       res.push({fields: f});
-    } //for
+    } // for
 
     var light = true;
     for(let i = 0; i < 8; ++i)
     {
       for (let j = 0; j < res[i].fields.length; ++j)
       {
-        //determine background colour of field
+        // determine background colour of field
         if (light)
         {
           res[i].fields[j].background = '#cccccc';
@@ -78,20 +78,20 @@ Template.boardCore.helpers({
           res[i].fields[j].background = '#999999';
         }
         light = !light;
-        //check whether field is start or end field
+        // check whether field is start or end field
         if (Session.equals('start', res[i].fields[j]._id) || Session.equals('end', res[i].fields[j]._id))
         {
-          //some kind of green
+          // some kind of green
           res[i].fields[j].background = '#5cb85c';
         }
-        //change rook to tower, because that is the name of the glyphicon
+        // change rook to tower, because that is the name of the glyphicon
         if (res[i].fields[j].piece == 'rook')
         {
           res[i].fields[j].piece = 'tower';
         }
-      } //for j
+      } // for j
       light = !light;
-    } //for i
+    } // for i
 
     return res;
   },

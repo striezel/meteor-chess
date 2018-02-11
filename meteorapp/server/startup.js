@@ -1,19 +1,19 @@
-//server startup: get information for information template + initialize board
+// server startup: get information for information template + initialize board
 if (Meteor.isServer)
 {
   Meteor.startup(function() {
-    //clear status table
+    // clear status table
     Info.remove({});
-    //fill status with NPM mongo module version
+    // fill status with NPM mongo module version
     Info.insert({name: 'npmMongoModuleVersion',
                    value: MongoInternals.NpmModules.mongodb.version});
-    //get git-info.json, if it exists
+    // get git-info.json, if it exists
     Assets.getText('git-info.json', function(err, result) {
       if (!err)
       {
         var gitInfo = JSON.parse(result);
         Info.insert({name: 'gitInfo', value: gitInfo});
-      } //if
+      } // if
       else
       {
         console.error('Server startup: Could not get asset git-info.json');
@@ -24,9 +24,9 @@ if (Meteor.isServer)
                                hashShort:   'Git information was not found.',
                                hashLong:    'Git information was not found.'}
                      });
-      } //else
+      } // else
     });
-    //try to get MongoDB server status via raw database
+    // try to get MongoDB server status via raw database
     var rawDB = Info.rawDatabase();
     rawDB.eval('db.serverStatus()', Meteor.bindEnvironment(function(err, result){
       if (!err)
@@ -37,18 +37,18 @@ if (Meteor.isServer)
       }
     }));
 
-    //add server startup time
+    // add server startup time
     Info.insert({name: 'startupTime',
                    value: new Date()});
 
-    //initialize board, if there is none
+    // initialize board, if there is none
     let boardDoc = Boards.findOne({});
     if (!boardDoc)
     {
       Meteor.call('boardInit');
     }
 
-    //indices for collections
+    // indices for collections
     Boards._ensureIndex({"created": 1});
     Fields._ensureIndex({"board": 1});
   });

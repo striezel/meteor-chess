@@ -27,7 +27,7 @@ Meteor.methods({
     {
       throw new Meteor.Error('entity-not-found', 'There is no board with the ID ' + boardId + '.');
     }
-    //delete fields and board information
+    // delete fields and board information
     Fields.remove({board: boardId});
     Boards.remove({_id: boardId});
     return true;
@@ -63,7 +63,7 @@ Meteor.methods({
     {
       throw new Meteor.Error('boards-mismatch', 'The given fields are on different boards!');
     }
-    //find board
+    // find board
     let board = Boards.findOne({_id: startDoc.board});
     if (board.winner !== null)
     {
@@ -71,7 +71,7 @@ Meteor.methods({
       throw new Meteor.Error('game-over', 'You cannot move pieces on this board.'
                             +' The game is over, winner is ' + board.winner + '.');
     }
-    //Is the correct player moving?
+    // Is the correct player moving?
     if (board.toMove !== startDoc.colour)
     {
       console.log('Info: Player tried to move ' + startDoc.colour
@@ -110,7 +110,7 @@ Meteor.methods({
                break;
           default:
                promoteTo = 'queen';
-        } //switch
+        } // switch
         // -- check for promotion of white pawn
         if ((startDoc.colour === 'white') && (destDoc.row === 8))
         {
@@ -130,7 +130,7 @@ Meteor.methods({
           let rowDiff = Math.abs(destDoc.row - startDoc.row);
           if ((colDiff === 1) && (rowDiff === 1))
           {
-            //remove captured pawn
+            // remove captured pawn
             let removeRow = destDoc.row;
             if (removeRow === 3)
               removeRow = 4;
@@ -138,13 +138,13 @@ Meteor.methods({
               removeRow = 5;
             Fields.update({"board": startDoc.board, column: destDoc.column, row: removeRow}, {$set: {piece: 'empty', colour: 'empty'}});
           }
-        } //if en passant field is destination
-        //check whether en passant capture is possible in next move
+        } // if en passant field is destination
+        // check whether en passant capture is possible in next move
         if ((startDoc.colour === 'white') && (startDoc.row === 2) && (destDoc.row === 4))
           enPassantData = {column: startDoc.column, row: 3};
         else if ((startDoc.colour === 'black') && (startDoc.row === 7) && (destDoc.row === 5))
           enPassantData = {column: startDoc.column, row: 6};
-      }//if pawn
+      }// if pawn
       // -- check for castling move
       if (startDoc.piece === 'king')
       {
@@ -152,37 +152,37 @@ Meteor.methods({
         {
           if ((destDoc.column === 'c') && (destDoc.row === 1) && (destDoc.piece === 'empty'))
           {
-            //white queenside castling
+            // white queenside castling
             // King was already moved, we just have to move the rook here.
             Fields.update({"board": startDoc.board, column: 'a', row: 1}, {$set: {piece: 'empty', colour: 'empty'}})
             Fields.update({"board": startDoc.board, column: 'd', row: 1}, {$set: {piece: 'rook', colour: 'white'}})
           }
           if ((destDoc.column === 'g') && (destDoc.row === 1) && (destDoc.piece === 'empty'))
           {
-            //white kingside castling
+            // white kingside castling
             // King was already moved, we just have to move the rook here.
             Fields.update({"board": startDoc.board, column: 'h', row: 1}, {$set: {piece: 'empty', colour: 'empty'}})
             Fields.update({"board": startDoc.board, column: 'f', row: 1}, {$set: {piece: 'rook', colour: 'white'}})
           }
-        }//if white king at initial position
+        } // if white king at initial position
         else if ((startDoc.colour === 'black') && (startDoc.column === 'e') && (startDoc.row === 8))
         {
           if ((destDoc.column === 'c') && (destDoc.row === 8) && (destDoc.piece === 'empty'))
           {
-            //black queenside castling
+            // black queenside castling
             // King was already moved, we just have to move the rook here.
             Fields.update({"board": startDoc.board, column: 'a', row: 8}, {$set: {piece: 'empty', colour: 'empty'}})
             Fields.update({"board": startDoc.board, column: 'd', row: 8}, {$set: {piece: 'rook', colour: 'black'}})
           }
           if ((destDoc.column === 'g') && (destDoc.row === 8) && (destDoc.piece === 'empty'))
           {
-            //black kingside castling
+            // black kingside castling
             // King was already moved, we just have to move the rook here.
             Fields.update({"board": startDoc.board, column: 'h', row: 8}, {$set: {piece: 'empty', colour: 'empty'}})
             Fields.update({"board": startDoc.board, column: 'f', row: 8}, {$set: {piece: 'rook', colour: 'black'}})
           }
-        }//if black king at initial position
-      } //if king may be castling
+        }// if black king at initial position
+      } // if king may be castling
       // -- castling update
       if (startDoc.piece === 'king')
       {
@@ -190,7 +190,7 @@ Meteor.methods({
           Boards.update({_id: board._id}, {$set: {"castling.black.kingside": false, "castling.black.queenside": false}});
         else
           Boards.update({_id: board._id}, {$set: {"castling.white.kingside": false, "castling.white.queenside": false}});
-      } //if king
+      } // if king
       else if (startDoc.piece === 'rook')
       {
         if (startDoc.colour === 'black')
@@ -199,15 +199,15 @@ Meteor.methods({
             Boards.update({_id: board._id}, {$set: {"castling.black.queenside": false}});
           else if ((startDoc.row === 8) && (startDoc.column === 'h'))
             Boards.update({_id: board._id}, {$set: {"castling.black.kingside": false}});
-        } //if black rook moved
+        } // if black rook moved
         else if (startDoc.colour === 'white')
         {
           if ((startDoc.row === 1) && (startDoc.column === 'a'))
             Boards.update({_id: board._id}, {$set: {"castling.white.queenside": false}});
           else if ((startDoc.row === 1) && (startDoc.column === 'h'))
             Boards.update({_id: board._id}, {$set: {"castling.white.kingside": false}});
-        } //if white rook moved
-      } //if rook
+        } // if white rook moved
+      } // if rook
       // -- update en passant data
       Boards.update({_id: board._id}, {$set: {"enPassant": enPassantData}});
       // -- determine whether anyone is in check

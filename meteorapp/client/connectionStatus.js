@@ -32,6 +32,6 @@ Template.connectionStatus.helpers({
            return {icon: "glyphicon-question-sign",
                    title: "unknown ('" + status + "')",
                    status: status, alertType: 'alert-info'};
-    } //switch
+    } // switch
   }
 });

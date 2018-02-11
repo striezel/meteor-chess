@@ -1,5 +1,5 @@
 Rules = {
-  /* determines whether a player is in check
+  /* Determines whether a player is in check.
 
      parameters:
        colour  - (string) the colour which may be in check, either "black" or "white"
@@ -13,7 +13,7 @@ Rules = {
   {
     let kingDoc = Fields.findOne({board: boardId, piece: 'king', "colour": colour});
     if (!kingDoc)
-      return false; //Maybe we should throw instead, if no king is present.
+      return false; // Maybe we should throw instead, if no king is present.
     let attackers = null;
     if (colour === 'white')
       attackers = Fields.find({board: boardId, colour: 'black'});
@@ -24,7 +24,7 @@ Rules = {
     {
     	if (Moves.allowed(aDoc._id, kingDoc._id, boardId))
     	  return true;
-    } //for
+    } // for
     return false;
   }
 };

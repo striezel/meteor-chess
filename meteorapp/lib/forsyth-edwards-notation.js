@@ -56,7 +56,7 @@ FEN = {
   */
   toBoard: function(fen)
   {
-    //This function currently only handles the first part, i.e. the pieces on the board.
+    // This function currently only handles the first part, i.e. the pieces on the board.
     var parts = fen.split(' ');
     var rows = parts[0].split('/');
     if (rows.length < 8)
@@ -64,7 +64,7 @@ FEN = {
 
     var map = fenmap();
 
-    //new board, white to move
+    // new board, white to move
     var boardId = Boards.insert({toMove: 'white', created: new Date(),
                                  castling: {white: {kingside: true, queenside: true},
                                             black: {kingside: true, queenside: true}},
@@ -74,8 +74,7 @@ FEN = {
                                });
 
     var bRow = 8;
-    var i = 0;
-    for (i = 0; i < 8; ++i)
+    for (let i = 0; i < 8; ++i)
     {
       var bColumn = 'a';
       for (let j = 0; j < rows[i].length; ++j)
@@ -85,7 +84,7 @@ FEN = {
           var t = map.get(rows[i][j]);
           Fields.insert({board: boardId, piece: t.piece, colour: t.colour, column: bColumn, row: bRow});
           bColumn = nextColumn(bColumn);
-        } //if map has
+        } // if map has
         else if (!isNaN(parseInt(rows[i][j])))
         {
           var count = Math.min(8, Math.max(1, parseInt(rows[i][j])));
@@ -93,21 +92,21 @@ FEN = {
           {
             Fields.insert({board: boardId, piece: 'empty', colour: 'empty', column: bColumn, row: bRow});
             bColumn = nextColumn(bColumn);
-          } //for k
-        } //else
-      } //for j
+          } // for k
+        } // else
+      } // for j
       bRow = bRow - 1;
-    } //for i
+    } // for i
 
-    //Who is to move?
+    // Who is to move?
     if (parts.length > 1)
     {
       if ((typeof parts[1] === 'string') && (parts[1].charAt(0).toLowerCase() === 'b'))
       {
         Boards.update({_id: boardId}, {$set: {toMove: 'black'}});
       }
-    } //if enough data to set toMove is present
-    //parse info about castling
+    } // if enough data to set toMove is present
+    // parse info about castling
     if (parts.length > 2)
     {
       let castling = {white: {kingside:  parts[2].indexOf('K') >= 0,
@@ -115,8 +114,8 @@ FEN = {
                       black: {kingside:  parts[2].indexOf('k') >= 0,
                               queenside: parts[2].indexOf('q') >= 0}};
       Boards.update({_id: boardId}, {$set: {"castling": castling}});
-    } //if castling info is given
-    //parse info about en passant move
+    } // if castling info is given
+    // parse info about en passant move
     if (parts.length > 3)
     {
       let ep_col = parts[3].charAt(0);
@@ -126,7 +125,7 @@ FEN = {
       {
         Boards.update({_id: boardId}, {$set: {enPassant: {column: ep_col, row: ep_row}}});
       }
-    } //if en passant info is given
+    } // if en passant info is given
 
     return boardId;
   },
@@ -162,13 +161,13 @@ FEN = {
           ++emptyCount;
         else
         {
-          //First, add empty count, if any.
+          // First, add empty count, if any.
           if (emptyCount > 0)
           {
             fenString = fenString + emptyCount;
             emptyCount = 0;
           }
-          //now add the real thing
+          // now add the real thing
           switch(fieldDoc.colour)
           {
             case 'white':
@@ -193,9 +192,9 @@ FEN = {
                         fenString = fenString + 'P';
                         break;
                    default:
-                        //invalid piece
+                        // invalid piece
                         return null;
-                 } //switch piece
+                 } // switch piece
                  break;
             case 'black':
                  switch(fieldDoc.piece)
@@ -219,24 +218,24 @@ FEN = {
                         fenString = fenString + 'p';
                         break;
                    default:
-                        //invalid piece
+                        // invalid piece
                         return null;
-                 } //switch piece
+                 } // switch piece
                  break;
-          } //switch colour
-        } //else
-      } //for columns
-      //First, add empty count, if any.
+          } // switch colour
+        } // else
+      } // for columns
+      // First, add empty count, if any.
       if (emptyCount > 0)
       {
         fenString = fenString + emptyCount;
         emptyCount = 0;
       }
-      //add slash - except after last row
+      // add slash - except after last row
       if (r > 1)
         fenString = fenString + "/";
-    } //for rows
-    //Who is to move?
+    } // for rows
+    // Who is to move?
     switch(boardDoc.toMove)
     {
       case 'white':
@@ -246,10 +245,10 @@ FEN = {
            fenString = fenString + " b";
            break;
       default:
-           //Something is wrong here, return without extra data.
+           // Something is wrong here, return without extra data.
            return fenString;
-    } //switch
-    //castling information
+    } // switch
+    // castling information
     let castlingString = "";
     if (boardDoc.castling.white.kingside)
       castlingString = castlingString + "K";
@@ -263,12 +262,12 @@ FEN = {
       fenString = fenString + " " + castlingString;
     else
       fenString = fenString + " -";
-    //en passant
+    // en passant
     if (boardDoc.enPassant.row === null)
       fenString = fenString + " -";
     else
       fenString = fenString + " " + boardDoc.enPassant.column + boardDoc.enPassant.row;
-    //return here, because other data is not implemented yet
+    // Return here, because other data is not implemented yet.
     return fenString;
   }
 };
