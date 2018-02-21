@@ -1,34 +1,63 @@
 <template name="introMoving">
   {{> connectionStatus}}
 
-  <div class="panel panel-default">
-    <div class="panel-heading" align="center">
-      <strong>Meteor Chess: Introduction - Moving pieces</strong>
-    </div>
-    <div class="panel-body">
-      <div align="right">
-        <a href="{{pathFor 'boardSelection'}}" class="btn btn-default">
-          Skip introduction <span class="glyphicon glyphicon-chevron-right"> </span>
-        </a>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-intro" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">
+          <span class="glyphicon glyphicon-king"> </span>
+          <strong>Meteor Chess</strong>
+        </span>
       </div>
-      <div class="col-xs-12" align="justify">
-      Pieces can be moved by first clicking on the piece that shall be moved
-      and then clicking on the field where the piece should move.
-      If the move is legal according to the chess rules, the piece will be moved
-      and the other player is to move. Fields that are selected for the move are
-      highlighted in green.<br />
-      If you accidentally selected the wrong piece to move, just click that piece
-      again and the selection will be reset, so that another piece can be moved.
-      Here the game deliberately departs from the rule provided by the FIDE
-      (i.e. the World Chess Federation), which states that a piece that has been
-      touched by the player has to be moved. The reason is that on some devices
-      like tablets it may sometimes be a bit hard to click/touch the correct
-      field.
-      <br /><br />
-      <a href="{{pathFor 'introCastling'}}" class="btn btn-default" id="next">
-        Go on! <span class="glyphicon glyphicon-chevron-right"> </span>
-      </a>
+
+      <div class="collapse navbar-collapse" id="bs-navbar-collapse-intro">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{pathFor 'intro'}}" id="intro">Introduction</a>
+          </li>
+          <li class="active">
+            <a href="{{pathFor 'introMoving'}}">Moving pieces</a>
+          </li>
+          <li>
+            <a href="{{pathFor 'introCastling'}}">Castling</a>
+          </li>
+          <li>
+            <a href="{{pathFor 'boardSelection'}}">
+              <span class="glyphicon glyphicon-chevron-right"> </span> Play!
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
+  </nav>
+
+  <div align="right">
+    <a href="{{pathFor 'boardSelection'}}" class="btn btn-default">
+      Skip introduction <span class="glyphicon glyphicon-chevron-right"> </span>
+    </a>
+  </div>
+  <div class="col-xs-12" align="justify">
+    Pieces can be moved by first clicking on the piece that shall be moved
+    and then clicking on the field where the piece should move.
+    If the move is legal according to the chess rules, the piece will be moved
+    and the other player is to move. Fields that are selected for the move are
+    highlighted in green.<br />
+    If you accidentally selected the wrong piece to move, just click that piece
+    again and the selection will be reset, so that another piece can be moved.
+    Here the game deliberately departs from the rule provided by the FIDE
+    (i.e. the World Chess Federation), which states that a piece that has been
+    touched by the player has to be moved. The reason is that on some devices
+    like tablets it may sometimes be a bit hard to click/touch the correct
+    field.
+    <br /><br />
+    <a href="{{pathFor 'introCastling'}}" class="btn btn-default" id="next">
+      Go on! <span class="glyphicon glyphicon-chevron-right"> </span>
+    </a>
   </div>
 </template>

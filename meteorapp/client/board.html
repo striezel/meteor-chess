@@ -1,76 +1,89 @@
 <template name="board">
   {{> connectionStatus}}
 
-  <div class="panel panel-default">
-    <div class="panel-heading" align="center">
-      <strong>Meteor Chess</strong>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#board-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">
+          <span class="glyphicon glyphicon-king"> </span>
+          <strong>Meteor Chess</strong>
+        </span>
+      </div>
+
+      <div class="collapse navbar-collapse" id="board-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{pathFor 'boardSelection'}}" id="intro">
+              <span class="glyphicon glyphicon-chevron-left"> </span> Back to list
+            </a>
+          </li>
+          <li class="active">
+            <a href="#">Board</a>
+          </li>
+          <li>
+            <a href="{{pathFor 'settings'}}">
+              <span class="glyphicon glyphicon-cog"> </span> Settings
+            </a>
+          </li>
+          <li>
+            <a href="{{pathFor 'information'}}">
+              <span class="glyphicon glyphicon-info-sign"> </span> Information
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="panel-body">
-      <div align="left" class="col-xs-4 col-md-2">
-        <a href="{{pathFor 'boardSelection'}}" class="btn btn-default col-xs-12">
-          <span class="glyphicon glyphicon-chevron-left"> </span> Back to list
-        </a>
-      </div>
+  </nav>
 
-      <div align="left" class="col-xs-0 col-md-3"></div>
-
-      <div align="left" class="col-xs-4 col-md-2">
-        <a href="{{pathFor 'settings'}}" class="btn btn-default col-xs-12">
-          <span class="glyphicon glyphicon-cog"> </span> Settings
-        </a>
-      </div>
-
-      <div align="left" class="col-xs-0 col-md-3"></div>
-
-      <div align="right" class="col-xs-4 col-md-2">
-        <a href="{{pathFor 'information'}}" class="btn btn-default col-xs-12">
-          <span class="glyphicon glyphicon-info-sign"> </span> Information
-        </a>
-      </div>
-
-      {{#if winner}}
+  <div class="container-fluid">
+    {{#if winner}}
+    <br /><br />
+    <div class="alert alert-success" role="alert" align="center">
+      <strong>Game is over! Winner is {{winner}}.</strong>
+    </div>
+    {{else}}
+      {{#if inCheckBlack}}
       <br /><br />
-      <div class="alert alert-success" role="alert" align="center">
-        <strong>Game is over! Winner is {{winner}}.</strong>
+      <div class="alert alert-danger" role="alert" align="center">
+        <strong>Black is in check!</strong>
       </div>
-      {{else}}
-        {{#if inCheckBlack}}
-        <br /><br />
-        <div class="alert alert-danger" role="alert" align="center">
-          <strong>Black is in check!</strong>
-        </div>
-        {{/if}}
-        {{#if inCheckWhite}}
-        <br /><br />
-        <div class="alert alert-danger" role="alert" align="center">
-          <strong>White is in check!</strong>
-        </div>
-        {{/if}}
-
-        <br /><br />
-        <div align="center">
-          {{#if equals toMove 'black'}}
-          <strong>Black is to move.</strong>
-          {{/if}}
-          {{#if equals 'white' toMove}}
-          <strong>White is to move.</strong>
-          {{/if}}
-        </div>
+      {{/if}}
+      {{#if inCheckWhite}}
+      <br /><br />
+      <div class="alert alert-danger" role="alert" align="center">
+        <strong>White is in check!</strong>
+      </div>
       {{/if}}
 
       <br /><br />
-
-      {{> boardCore}}
-
-      <br style="clear: both;" />
-
-      <div style="height: 1.5em;"></div>
-
       <div align="center">
-        <a href="{{pathFor 'boardDelete'}}" class="btn btn-danger">
-          <span class="glyphicon glyphicon-trash"> </span> Delete this board
-        </a>
+        {{#if equals toMove 'black'}}
+        <strong>Black is to move.</strong>
+        {{/if}}
+        {{#if equals 'white' toMove}}
+        <strong>White is to move.</strong>
+        {{/if}}
       </div>
+    {{/if}}
+
+    <br /><br />
+
+    {{> boardCore}}
+
+    <br style="clear: both;" />
+
+    <div style="height: 1.5em;"></div>
+
+    <div align="center">
+      <a href="{{pathFor 'boardDelete'}}" class="btn btn-danger">
+        <span class="glyphicon glyphicon-trash"> </span> Delete this board
+      </a>
     </div>
   </div>
 </template>
