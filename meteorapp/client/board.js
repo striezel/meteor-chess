@@ -1,6 +1,7 @@
 Template.board.created = function() {
   // If no board was selected yet, go back to board selection.
-  if (Session.equals('board', undefined))
+  if (Session.equals('board', undefined) || Session.equals('board', null)
+    || Session.equals('board', ""))
   {
     console.log('Board is not defined, switching to board selection.');
     Router.go('boardSelection');
