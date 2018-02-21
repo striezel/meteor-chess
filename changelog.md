@@ -1,5 +1,9 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.15 (2018-02-22)
+
+Redesign of navigational elements.
+
 ## Meteor Chess, version 0.14 (2016-11-06)
 
 Add animation to introduction about castling.
