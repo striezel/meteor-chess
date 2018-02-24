@@ -15,6 +15,17 @@ Template.settings.helpers({
     if (Session.equals('promotion', 'rook'))
       return 'tower';
     return Session.get('promotion');
+  },
+  exec_path: function() {
+    if (Session.equals('executable', undefined))
+      return '';
+    return Session.get('executable').path;
+  },
+  exec_version: function() {
+    if (Session.equals('executable', undefined))
+      return null;
+    const v = Session.get('executable').version;
+    return v.major + '.' + v.minor + '.' + v.patch;
   }
 });
 
@@ -51,6 +62,24 @@ Template.settings.events({
       case 'bishop':
            Session.set('promotion', id);
            break;
+    } // switch
+  },
+  'click button': function(event) {
+    let id = event.currentTarget.id;
+    console.log("Button click, id is " + id + ".");
+    if (id === 'execpath')
+    {
+      var path = $('#pathinput').val();
+      Meteor.call('checkExecutablePath', path, function(err, result) {
+        if (err)
+        {
+          alert('Path is invalid: ' + err.reason);
+        }
+        else if (result)
+        {
+          Session.set('executable', {version: result, path: path});
+        }
+      });
     } // switch
   }
 });
