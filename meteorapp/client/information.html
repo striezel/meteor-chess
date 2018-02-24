@@ -6,16 +6,52 @@
 </template>
 
 <template name="information">
-  <div class="page-header">
-    <a href="{{pathFor 'board'}}">
-      <button class="btn btn-info" style="width: 100%;">
-        <span class="glyphicon glyphicon-info-sign"> </span>
-        <strong>Meteror Chess</strong>
-      </button>
-    </a>
-  </div>
+  <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#information-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <span class="navbar-brand">
+          <span class="glyphicon glyphicon-king"> </span>
+          <strong>Meteor Chess:</strong> Settings
+        </span>
+      </div>
 
-  <div><br /></div>
+      <div class="collapse navbar-collapse" id="information-navbar-collapse">
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{pathFor 'intro'}}" id="intro">
+              <span class="glyphicon glyphicon-question-sign"> </span> Introduction
+            </a>
+          </li>
+          <li>
+            <a href="{{pathFor 'boardSelection'}}" id="intro">
+              <span class="glyphicon glyphicon-list"> </span> Board list
+            </a>
+          </li>
+          <li>
+            <a href="{{pathFor 'board'}}">
+              <span class="glyphicon glyphicon-th"> </span> Board
+            </a>
+          </li>
+          <li>
+            <a href="{{pathFor 'settings'}}">
+              <span class="glyphicon glyphicon-cog"> </span> Settings
+            </a>
+          </li>
+          <li class="active">
+            <a href="#">
+              <span class="glyphicon glyphicon-info-sign"> </span> Information
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -201,7 +237,7 @@
   </div>
 
   <a href="{{pathFor 'board'}}">
-    <button class="btn btn-default col-xs-6">
+    <button class="btn btn-default col-xs-12 col-md-6">
       <span class="glyphicon glyphicon-step-backward"></span> Back
     </button>
   </a>

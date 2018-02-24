@@ -19,17 +19,23 @@
       <div class="collapse navbar-collapse" id="bs-navbar-collapse-intro">
         <ul class="nav navbar-nav">
           <li class="active">
-            <a href="{{pathFor 'intro'}}" id="intro">Introduction</a>
+            <a href="{{pathFor 'intro'}}" id="intro">
+              <span class="glyphicon glyphicon-question-sign"> </span> Introduction
+            </a>
           </li>
           <li>
-            <a href="{{pathFor 'introMoving'}}">Moving pieces</a>
+            <a href="{{pathFor 'introMoving'}}">
+              <span class="glyphicon glyphicon-move"> </span> Moving pieces
+            </a>
           </li>
           <li>
-            <a href="{{pathFor 'introCastling'}}">Castling</a>
+            <a href="{{pathFor 'introCastling'}}">
+              <span class="glyphicon glyphicon-tower"> </span> Castling
+            </a>
           </li>
           <li>
             <a href="{{pathFor 'boardSelection'}}">
-              <span class="glyphicon glyphicon-fast-forward"> </span> Skip intro
+              <span class="glyphicon glyphicon-fast-forward"> </span> Skip introduction
             </a>
           </li>
         </ul>
@@ -55,8 +61,8 @@
     If you decide to skip the introduction now, you can always return to it
     later on.
     <br /><br />
-    <a href="{{pathFor 'introMoving'}}" class="btn btn-default" id="next">
-      Go on with introduction <span class="glyphicon glyphicon-chevron-right"> </span>
+    <a href="{{pathFor 'introMoving'}}" class="btn btn-default col-xs-12 col-md-4 col-lg-2" id="next">
+      Next: Moving pieces <span class="glyphicon glyphicon-chevron-right"> </span>
     </a>
   </div>
 </template>

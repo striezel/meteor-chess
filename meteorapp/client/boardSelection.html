@@ -20,13 +20,13 @@
         <ul class="nav navbar-nav">
           <li>
             <a href="{{pathFor 'intro'}}" id="intro">
-              <span class="glyphicon glyphicon-chevron-left"> </span> Back to introduction
+              <span class="glyphicon glyphicon-question-sign"> </span> Introduction
             </a>
           </li>
-          <li>
-            <button class="btn btn-primary navbar-btn" id="new" align="center">
-              <span class="glyphicon glyphicon-plus"> </span> Add new board
-            </button>
+          <li class="active">
+            <a href="#">
+              <span class="glyphicon glyphicon-list"> </span> Board list
+            </a>
           </li>
           <li>
             <a href="{{pathFor 'settings'}}">
@@ -43,12 +43,16 @@
     </div>
   </nav>
   <div class="container">
+    <button class="btn btn-primary navbar-btn" id="new" align="center">
+      <span class="glyphicon glyphicon-plus"> </span> Add new board
+    </button>
+
     <ul class="list-group">
     {{#each boards}}
     <li class="list-group-item" id="{{_id}}">
       <span class="glyphicon glyphicon-{{icon}}"
             style="color: black; width: 36px; height: 36px; font-size: 1.5em; align: center;"> </span>
-      #{{number}} - created at {{creation}},
+      Board #{{number}} - created at {{creation}},
       {{#unless winner}}
         {{toMove}} is to move
       {{else}}
@@ -61,12 +65,8 @@
     <div class="list-group">
       <div class="list-group-item">
         <span class="glyphicon glyphicon-info-sign"> </span>
-        There are no boards yet. Use the button "Add&nbsp;new&nbsp;board"
-        <span class="visible-xs-inline">
-          <!-- This only shows when the navbar is collapsed in mobile mode. -->
-          from the menu
-        </span>
-        to create a new one.
+        There are no boards yet. Use the button "Add&nbsp;new&nbsp;board" to
+        create a new one.
       </div>
     </div>
     {{/if}}

@@ -19,13 +19,19 @@
       <div class="collapse navbar-collapse" id="bs-navbar-collapse-intro">
         <ul class="nav navbar-nav">
           <li>
-            <a href="{{pathFor 'intro'}}" id="intro">Introduction</a>
+            <a href="{{pathFor 'intro'}}" id="intro">
+              <span class="glyphicon glyphicon-question-sign"> </span> Introduction
+            </a>
           </li>
           <li>
-            <a href="{{pathFor 'introMoving'}}">Moving pieces</a>
+            <a href="{{pathFor 'introMoving'}}">
+              <span class="glyphicon glyphicon-move"> </span> Moving pieces
+            </a>
           </li>
           <li class="active">
-            <a href="{{pathFor 'introCastling'}}">Castling</a>
+            <a href="{{pathFor 'introCastling'}}">
+              <span class="glyphicon glyphicon-tower"> </span> Castling
+            </a>
           </li>
           <li>
             <a href="{{pathFor 'boardSelection'}}">
@@ -39,7 +45,7 @@
 
   <div align="right">
     <a href="{{pathFor 'boardSelection'}}" class="btn btn-default">
-      Skip introduction <span class="glyphicon glyphicon-chevron-right"> </span>
+      Play! <span class="glyphicon glyphicon-chevron-right"> </span>
     </a>
   </div>
   <div class="col-xs-12" align="justify">
@@ -65,8 +71,8 @@
     <br /><br />
     That's all for the introduction, have fun.
     <br /><br />
-    <a href="{{pathFor 'boardSelection'}}" class="btn btn-default" id="next">
-      Go on! <span class="glyphicon glyphicon-chevron-right"> </span>
+    <a href="{{pathFor 'boardSelection'}}" class="btn btn-default col-xs-12 col-md-4 col-lg-2" id="next">
+      Play! <span class="glyphicon glyphicon-chevron-right"> </span>
     </a>
   </div>
 </template>
