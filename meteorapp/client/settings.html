@@ -62,11 +62,46 @@
                 Size <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><a href="#" id="xl">Very large</a></li>  <!-- 72px, 3em -->
-                <li><a href="#" id="lg">Large</a></li>  <!-- 60px, 2.5em -->
-                <li><a href="#" id="md">Medium (default)</a></li> <!-- 48px, 2em -->
-                <li><a href="#" id="sm">Small</a></li> <!-- 36px, 1.5em -->
-                <li><a href="#" id="xs">Very small</a></li> <!-- 24px, 1em -->
+                <li>
+                  <a href="#" id="xl">
+                  {{#if equals settings_size 72}}
+                    <span class="glyphicon glyphicon-ok"> </span>
+                  {{/if}}
+                  Very large <!-- 72px, 3em -->
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="lg">
+                  {{#if equals settings_size 60}}
+                    <span class="glyphicon glyphicon-ok"> </span>
+                  {{/if}}
+                  Large  <!-- 60px, 2.5em -->
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="md">
+                  {{#if equals settings_size 48}}
+                    <span class="glyphicon glyphicon-ok"> </span>
+                  {{/if}}
+                  Medium (default) <!-- 48px, 2em -->
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="sm">
+                    {{#if equals settings_size 36}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Small <!-- 36px, 1.5em -->
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="xs">
+                    {{#if equals settings_size 24}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Very small <!-- 24px, 1em -->
+                  </a>
+                </li>
               </ul>
             </div>
           </td>
@@ -136,10 +171,38 @@
                 Pawn promotion <span class="caret"></span>
               </button>
               <ul class="dropdown-menu">
-                <li><a href="#" id="queen">Queen</a></li>
-                <li><a href="#" id="knight">Knight</a></li>
-                <li><a href="#" id="bishop">Bishop</a></li>
-                <li><a href="#" id="rook">Rook</a></li>
+                <li>
+                  <a href="#" id="queen">
+                    {{#if equals promotion 'queen'}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Queen
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="knight">
+                    {{#if equals promotion 'knight'}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Knight
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="bishop">
+                    {{#if equals promotion 'bishop'}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Bishop
+                  </a>
+                </li>
+                <li>
+                  <a href="#" id="rook">
+                    {{#if equals promotion 'tower'}}
+                      <span class="glyphicon glyphicon-ok"> </span>
+                    {{/if}}
+                    Rook
+                  </a>
+                </li>
               </ul>
             </div>
           </td>

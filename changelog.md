@@ -1,5 +1,10 @@
 # Changelog of Meteor Chess
 
+## Meteor Chess, version 0.16 (2018-02-24)
+
+The currently selected settings options are now more visible to the user when
+in the settings template.
+
 ## Meteor Chess, version 0.15 (2018-02-22)
 
 Redesign of navigational elements.
