@@ -10,8 +10,8 @@ cache:
     - ".meteor"
 addons:
   apt:
-    sources:
-    - ubuntu-toolchain-r-test
+#    sources:
+#    - ubuntu-toolchain-r-test
     packages:
     - g++-4.8
     - gcc-4.8
@@ -24,6 +24,8 @@ addons:
 before_install:
   - export CXX="g++-4.8" CC="gcc-4.8"
 install:
+  # Install Meteor globally.
+  - pwd
   - curl https://install.meteor.com/ | sh
   # Build meteor-chess-client with gcc.
   - cd
@@ -34,7 +36,9 @@ install:
   - cmake ..
   # Build only meteor-chess-client and not the other executables.
   - make -j2 meteor-chess-client
-  - cd
+  # change back to build directory of meteor-chess
+  - cd "$TRAVIS_BUILD_DIR"
+  - pwd
 script:
   - cd meteorapp
   - meteor npm install
