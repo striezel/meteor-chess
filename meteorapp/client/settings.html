@@ -268,6 +268,28 @@
     </table>
   </div>
 
+  <div class="panel panel-default">
+    <div class="panel-heading" align="center">
+      <strong>AI settings</strong>
+    </div>
+    <table class="table">
+      <tbody>
+        <tr>
+          <td class="col-xs-6">
+            <h2>White player</h2>
+            <br />
+            {{>settingsAI player='white'}}
+          </td>
+          <td class="col-xs-6">
+            <h2>Black player</h2>
+            <br />
+            {{>settingsAI player='black'}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
   <a href="{{pathFor 'board'}}" class="btn btn-default col-xs-12">
     <span class="glyphicon glyphicon-chevron-left"> </span> Back to board
   </a>

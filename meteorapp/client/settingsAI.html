@@ -1,0 +1,61 @@
+<template name="settingsAI">
+  <fieldset>
+    <legend>Player type:</legend>
+    <label>
+      <input type="radio" name="use_ai_{{player}}" value="0">
+      <span class="glyphicon glyphicon-user"> </span> human
+    </label>
+    <label>
+      <input type="radio" name="use_ai_{{player}}" value="1">
+      <span class="glyphicon glyphicon-hdd"> </span>  computer
+    </label>
+  </fieldset>
+
+  <br />
+
+  <fieldset>
+    <legend>Evaluators:</legend>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_material" value="material">
+          <span class="glyphicon glyphicon-queen"> </span> material (recommended)
+        </label>
+      </li>
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_linearmobility" value="1">
+          <span class="glyphicon glyphicon-move"> </span> mobility, linear
+        </label>
+      </li>
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_rootmobility" value="1">
+          <span class="glyphicon glyphicon-move"> </span> mobility, root (recommended)
+        </label>
+      </li>
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_promotion" value="1">
+          <span class="glyphicon glyphicon-pawn"> </span> pawn promotion (recommended)
+        </label>
+      </li>
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_check" value="1">
+          <span class="glyphicon glyphicon-warning-sign"> </span>
+          <span class="glyphicon glyphicon-king"> </span> check (recommended)
+        </label>
+      </li>
+      <li class="list-group-item">
+        <label>
+          <input type="checkbox" name="eval_{{player}}_castling" value="1">
+          <span class="glyphicon glyphicon-king"> </span>
+          <span class="glyphicon glyphicon-transfer"> </span>
+          <span class="glyphicon glyphicon-tower"> </span>
+          castling (recommended)
+        </label>
+      </li>
+    </ul>
+  </fieldset>
+</template>
