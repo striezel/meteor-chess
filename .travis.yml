@@ -8,8 +8,33 @@ dist: trusty
 cache:
   directories:
     - ".meteor"
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - gcc-4.8
+    - git
+    - cmake
+    - catch
+    - libglib2.0-dev
+    - libjsoncpp-dev
+    - libmongo-client-dev
+before_install:
+  - export CXX="g++-4.8" CC="gcc-4.8"
 install:
   - curl https://install.meteor.com/ | sh
+  # Build meteor-chess-client with gcc.
+  - cd
+  - git clone https://github.com/striezel/simple-chess.git
+  - cd simple-chess
+  - mkdir ./b
+  - cd ./b
+  - cmake ..
+  # Build only meteor-chess-client and not the other executables.
+  - make -j2 meteor-chess-client
+  - cd
 script:
   - cd meteorapp
   - meteor npm install
