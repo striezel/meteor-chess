@@ -77,35 +77,7 @@ Meteor.methods({
     for (let ex of execs)
     {
       try {
-        const stdout = execFileSync(ex.path, ['--json', '--version'],
-          {timeout: 2000, killSignal: 'SIGKILL'});
-        var info = null;
-        try {
-          info = JSON.parse(stdout);
-        } catch (e) {
-          // No JSON, remove it.
-          Executables.remove({_id: ex._id});
-          ++removed;
-          continue;
-        } // inner try-catch
-        if (!info.version || !info.version.fullText || (typeof info.version.fullText !== 'string')
-            || (typeof info.version.major !== 'number')
-            || (typeof info.version.minor !== 'number')
-            || (typeof info.version.patch !== 'number')) {
-          // invalid or missing output: remove executable
-          Executables.remove({_id: ex._id});
-          ++removed;
-          continue;
-        } // if
-        // Minimum required version is 0.5.1.
-        const required = {major: 0, minor: 5, patch: 1};
-        var compatible = SemVer.compatible(required, info.version);
-        if (!compatible) {
-          // Incompatible version: remove executable.
-          Executables.remove({_id: ex._id});
-          ++removed;
-          continue;
-        }
+        const id = Meteor.call('checkExecutablePath', ex.path);
       } catch (e) {
         // Execution failed, remove it.
         Executables.remove({_id: ex._id});
