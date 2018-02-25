@@ -7,7 +7,8 @@ Meteor.methods({
        path - (string) path to the executable file on the server
 
      return value:
-       version of the executable in case of success, throws in case of error
+       id of the MongoDB id for the corresponding entry in the Executables
+       collection
   */
   checkExecutablePath: function(path) {
     console.log('Info: Setting new executable path...');
@@ -18,16 +19,14 @@ Meteor.methods({
       throw new Meteor.Error('invalid-value', "Empty path is not allowed!");
     }
 
-    var Future = require('fibers/future');
-    var future = new Future();
-    const { execFile } = require('child_process');
-    execFile(path, ['--json', '--version'], function(error, stdout, stderr) {
-      if (error) {
-        throw new Meteor.Error('exec-fail', "File could not be executed!");
-      }
-      future.return(stdout.toString());
-    });
-    var rawOut = future.wait();
+    const { execFileSync } = require('child_process');
+
+    var rawOut = null;
+    try {
+      rawOut = execFileSync(path, ['--json', '--version'], {timeout: 2000, killSignal: 'SIGKILL'});
+    } catch (e) {
+      throw new Meteor.Error('exec-fail', "File could not be executed!");
+    }
     var info = null;
     try {
       info = JSON.parse(rawOut);
@@ -52,7 +51,67 @@ Meteor.methods({
         + required.minor + '.' + required.patch + ', but version ' + actual.major
         + '.' + actual.minor + '.' + actual.patch + ' was found.');
     }
-    // Version of executable is compatible. Return the version.
-    return info.version;
+    // Version of executable is compatible. Insert or update MongoDB.
+    const found = Executables.findOne({path: path});
+    if (!found) {
+      return Executables.insert({path: path, version: info.version});
+    }
+    // Update existing entry.
+    Executables.update({_id: found._id}, {$set: {version: info.version}});
+    return found._id;
+  },
+
+  /* Purges all missing executables and updates all outdated executables.
+
+     Parameters:
+       none
+
+     Returns:
+       number of purged executable entries
+  */
+  purgeExecutables: function() {
+    const { execFileSync } = require('child_process');
+
+    let removed = 0;
+    const execs = Executables.find({}).fetch();
+    for (let ex of execs)
+    {
+      try {
+        const stdout = execFileSync(ex.path, ['--json', '--version'],
+          {timeout: 2000, killSignal: 'SIGKILL'});
+        var info = null;
+        try {
+          info = JSON.parse(stdout);
+        } catch (e) {
+          // No JSON, remove it.
+          Executables.remove({_id: ex._id});
+          ++removed;
+          continue;
+        } // inner try-catch
+        if (!info.version || !info.version.fullText || (typeof info.version.fullText !== 'string')
+            || (typeof info.version.major !== 'number')
+            || (typeof info.version.minor !== 'number')
+            || (typeof info.version.patch !== 'number')) {
+          // invalid or missing output: remove executable
+          Executables.remove({_id: ex._id});
+          ++removed;
+          continue;
+        } // if
+        // Minimum required version is 0.5.1.
+        const required = {major: 0, minor: 5, patch: 1};
+        var compatible = SemVer.compatible(required, info.version);
+        if (!compatible) {
+          // Incompatible version: remove executable.
+          Executables.remove({_id: ex._id});
+          ++removed;
+          continue;
+        }
+      } catch (e) {
+        // Execution failed, remove it.
+        Executables.remove({_id: ex._id});
+        ++removed;
+      }
+    } // for
+    return removed;
   }
 });

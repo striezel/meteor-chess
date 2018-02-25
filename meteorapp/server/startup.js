@@ -51,5 +51,16 @@ if (Meteor.isServer)
     // indices for collections
     Boards._ensureIndex({"created": 1});
     Fields._ensureIndex({"board": 1});
+    Executables._ensureIndex({"path": 1});
+
+    // Purge outdated executables.
+    const purged = Meteor.call('purgeExecutables');
+    if (purged === 1) {
+      console.warn('One executable(s) was purged.');
+    } else if (purged === 0) {
+      console.info('No executables were purged.');
+    } else {
+      console.warn(purged.toString() + ' executables were purged.');
+    }
   });
 }

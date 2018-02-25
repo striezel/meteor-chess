@@ -1,3 +1,7 @@
+Template.settings.created = function() {
+  this.subscribe('executables');
+};
+
 Template.settings.helpers({
   settings_size: function() {
     if (Session.equals('settings_size', undefined))
@@ -66,7 +70,6 @@ Template.settings.events({
   },
   'click button': function(event) {
     let id = event.currentTarget.id;
-    console.log("Button click, id is " + id + ".");
     if (id === 'execpath')
     {
       var path = $('#pathinput').val();
@@ -77,7 +80,8 @@ Template.settings.events({
         }
         else if (result)
         {
-          Session.set('executable', {version: result, path: path});
+          const execDoc = Executables.findOne({_id: result});
+          Session.set('executable', {id: result, version: execDoc.version, path: execDoc.path});
         }
       });
     } // switch

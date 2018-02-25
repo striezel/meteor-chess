@@ -6,3 +6,6 @@ Fields = new Mongo.Collection('fields');
 
 // collection for server-side information
 Info = new Mongo.Collection('info');
+
+// collection for meteor-chess-client executable information
+Executables = new Mongo.Collection('executables');
