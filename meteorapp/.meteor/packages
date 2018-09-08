@@ -25,5 +25,5 @@ session@1.1.7
 momentjs:moment
 dispatch:mocha-phantomjs
 practicalmeteor:chai
-dynamic-import@0.4.0
+dynamic-import@0.4.2
 underscore@1.0.10
