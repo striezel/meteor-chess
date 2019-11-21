@@ -1,0 +1,6 @@
+# ignore Git metadata
+.git/
+# Node.js modules in application directory
+meteorapp/node_modules
+# no Dockerfile
+Dockerfile
