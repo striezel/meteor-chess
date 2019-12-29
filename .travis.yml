@@ -4,7 +4,7 @@ node_js:
 # We need sudo to create the global meteor script in /usr/bin/meteor during
 # the installation of Meteor.
 sudo: true
-dist: xenial
+dist: bionic
 cache:
   directories:
     - ".meteor"
