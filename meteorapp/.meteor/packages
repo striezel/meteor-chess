@@ -23,7 +23,7 @@ iron:router
 minimongo@1.4.5
 session@1.2.0
 momentjs:moment
-dispatch:mocha-phantomjs
 practicalmeteor:chai
 dynamic-import@0.5.1
 underscore@1.0.10
+meteortesting:mocha

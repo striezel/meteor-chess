@@ -41,7 +41,7 @@ fi
 
 # Tests will be run on port 3333 instead of 3000 to make sure that any
 # potential users on port 3000 will not see the tests.
-$METEOR test --driver-package dispatch:mocha-phantomjs --once --full-app \
+$METEOR test --driver-package meteortesting:mocha --once --full-app \
  --port 3333
 EXITCODE_METEOR_TEST=$?
 
