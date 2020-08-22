@@ -4,6 +4,13 @@ This Meteor application aims to be an app where two human players can play
 chess against each other. It is still in a very early development phase, so
 most of the functionality is not implemented yet.
 
+## Build status
+
+* GitLab CI:
+[![GitLab pipeline status](https://gitlab.com/striezel/meteor-chess/badges/master/pipeline.svg)](https://gitlab.com/striezel/meteor-chess/-/pipelines)
+* Travis CI:
+[![Build Status](https://travis-ci.org/striezel/meteor-chess.svg?branch=master)](https://travis-ci.org/striezel/meteor-chess)
+
 ## Setting up the application
 
 ### Native setup (Linux)
