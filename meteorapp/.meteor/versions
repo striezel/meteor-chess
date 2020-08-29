@@ -50,7 +50,7 @@ meteor@1.9.3
 meteor-base@1.4.0
 meteortesting:browser-tests@1.3.4
 meteortesting:mocha@2.0.1
-meteortesting:mocha-core@8.0.1
+meteortesting:mocha-core@8.1.2
 minifier-css@1.5.2
 minifier-js@2.6.0
 minimongo@1.6.0
