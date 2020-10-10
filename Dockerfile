@@ -1,11 +1,12 @@
 # This Dockerfile will set up a Debian 8-based container that is able to
 # run the Meteor chess application.
 #
-# Version 0.05
+# Version 0.06
 #
 # History
 # -------
 #
+# version 0.06 - reduce overhead + remove no longer needed stuff
 # version 0.05 - use debian:10-slim as base image
 # version 0.04 - add bzip2 and tar packages for PhantomJS
 # version 0.03 - fix locale setting problem with MongoDB
@@ -17,11 +18,10 @@ MAINTAINER Dirk Stolle <striezel-dev@web.de>
 
 # Packages should be up to date.
 RUN apt-get update && apt-get upgrade -y && \
-# install curl, locales, grep, git and bzip2
+# install curl, locales, grep
 # - curl for Meteor download / installation
 # - locales and grep for setting locale for MongoDB
-# - bzip2 and tar for phantomjs test (dispatch:phantomjs-tests) extraction
-    apt-get install -y bzip2 curl grep locales procps tar && \
+    apt-get install -y curl grep locales procps && \
     apt-get clean
 
 # set locale: required for MongoDB
@@ -50,12 +50,8 @@ WORKDIR /meteor/meteorapp
 # That's why this stuff gets deleted.
 RUN rm -rf .meteor/local
 
-# git for readable-stream NPM package
-RUN apt-get install -y git && \
 # install node packages
-    meteor npm install && \
-    apt-get purge -y git && apt-get autoremove -y && apt-get clean
-
+RUN meteor npm install
 # Expose port 3000 - that is the default port for Meteor applications.
 EXPOSE 3000
 
