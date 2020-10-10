@@ -2,5 +2,7 @@
 .git/
 # Node.js modules in application directory
 meteorapp/node_modules
+# local stuff of Meteor application
+meteorapp/.meteor/local/
 # no Dockerfile
 Dockerfile
