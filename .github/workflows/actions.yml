@@ -1,0 +1,42 @@
+name: GitHub CI
+
+on: push
+
+jobs:
+  build_ubuntu_20_04:
+    runs-on: ubuntu-20.04
+    steps:
+      # Checks-out the repository under $GITHUB_WORKSPACE.
+      - uses: actions/checkout@v2
+      - name: Cache Meteor.js installation
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-meteor
+        with:
+          # Meteor installation is located in `~/.meteor` on Linux.
+          path: ~/.meteor
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/meteorapp/.meteor') }}
+      - name: Cache NPM packages
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-npm
+        with:
+          path: $GITHUB_WORKSPACE/meteorapp/node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/meteorapp/package-lock.json') }}
+      - name: Install Debian packages
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y bash bzip2 curl git libfontconfig1 procps tar
+      - name: Download Meteor.js
+        run: |
+          curl https://install.meteor.com/ | sh          
+      - name: Install Meteor packages
+        run: |
+          cd "$GITHUB_WORKSPACE"/meteorapp && pwd && ls -lah
+          export METEOR_ALLOW_SUPERUSER=1
+          meteor npm install
+      - name: Tests
+        run: |
+          cd "$GITHUB_WORKSPACE"/meteorapp
+          export METEOR_ALLOW_SUPERUSER=1
+          ./tests.sh
