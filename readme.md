@@ -6,6 +6,8 @@ most of the functionality is not implemented yet.
 
 ## Build status
 
+* GitHub Actions:
+[![GitHub CI status](https://github.com/striezel/meteor-chess/workflows/GitHub%20CI/badge.svg)](https://github.com/striezel/meteor-chess/actions)
 * GitLab CI:
 [![GitLab pipeline status](https://gitlab.com/striezel/meteor-chess/badges/master/pipeline.svg)](https://gitlab.com/striezel/meteor-chess/-/pipelines)
 * Travis CI:
