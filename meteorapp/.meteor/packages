@@ -25,5 +25,4 @@ session@1.2.0
 momentjs:moment
 practicalmeteor:chai
 dynamic-import@0.6.0
-underscore@1.0.10
 meteortesting:mocha
