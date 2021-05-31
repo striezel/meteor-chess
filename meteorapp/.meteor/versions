@@ -78,7 +78,7 @@ retry@1.1.0
 routepolicy@1.1.0
 session@1.2.0
 shell-server@0.5.0
-socket-stream-client@0.3.2
+socket-stream-client@0.3.3
 spacebars@1.1.0
 spacebars-compiler@1.2.1
 standard-minifier-css@1.7.2
