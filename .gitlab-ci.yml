@@ -5,7 +5,7 @@ test:
   stage: test
   before_script:
     - apt-get update
-    - apt-get install -y bash bzip2 curl gawk git grep libfontconfig1 procps tar
+    - apt-get install -y bash bzip2 curl git grep libfontconfig1 procps tar
     - curl https://install.meteor.com/ | sh
     # Since this runs in a Docker container as super user, we need to set the
     # appropriate environment variable to allow Meteor to run as root.
