@@ -54,7 +54,7 @@ if (Meteor.isServer)
     }
 
     // indices for collections
-    Boards._ensureIndex({"created": 1});
-    Fields._ensureIndex({"board": 1});
+    Boards.createIndex({"created": 1});
+    Fields.createIndex({"board": 1});
   });
 }
