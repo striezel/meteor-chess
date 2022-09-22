@@ -1,0 +1,17 @@
+# For all possible configuration options see:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/meteorapp"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "striezel"
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "striezel"
