@@ -119,10 +119,12 @@ Meteor.methods({
           case 'bishop':
           case 'knight':
           case 'rook':
-               promoteTo = promoteTo;
+               // allowed value, leave it as it is
                break;
           default:
+               // For disallowed values fall back to promotion to queen.
                promoteTo = 'queen';
+               break;
         } // switch
         // -- check for promotion of white pawn
         if ((startDoc.colour === 'white') && (destDoc.row === 8))
