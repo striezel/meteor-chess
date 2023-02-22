@@ -3,7 +3,7 @@ name: GitHub CI
 on: push
 
 jobs:
-  build_ubuntu_22_04:
+  ubuntu:
     runs-on: ubuntu-22.04
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
