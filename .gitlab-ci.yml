@@ -1,5 +1,5 @@
 # Use the official debian image.
-image: debian:11-slim
+image: debian:12-slim
 
 test:
   stage: test
