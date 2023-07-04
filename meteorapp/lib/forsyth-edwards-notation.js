@@ -131,7 +131,7 @@ FEN = {
     if (parts.length > 4)
     {
       let val = parseInt(parts[4]);
-      if (!isNaN(val) && (val < 0))
+      if (!isNaN(val) && (val > 0))
         Boards.update({_id: boardId}, {$set: {"halfmovesFifty": val}});
       else
         Boards.update({_id: boardId}, {$set: {"halfmovesFifty": 0}});
