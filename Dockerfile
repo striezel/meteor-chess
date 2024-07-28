@@ -1,19 +1,5 @@
 # This Dockerfile will set up a Debian 12-based container that is able to
 # run the Meteor chess application.
-#
-# Version 0.08
-#
-# History
-# -------
-#
-# version 0.08 - use debian:12-slim as base image
-# version 0.07 - use debian:11-slim as base image
-# version 0.06 - reduce overhead + remove no longer needed stuff
-# version 0.05 - use debian:10-slim as base image
-# version 0.04 - add bzip2 and tar packages for PhantomJS
-# version 0.03 - fix locale setting problem with MongoDB
-# version 0.02 - allow Meteor 1.4.2.1 and later to run as superuser in Docker
-# version 0.01 - initial version
 
 FROM debian:12-slim
 MAINTAINER Dirk Stolle <striezel-dev@web.de>
