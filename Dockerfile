@@ -39,7 +39,7 @@ WORKDIR /meteor/meteorapp
 RUN rm -rf .meteor/local
 
 # install node packages
-RUN meteor npm install
+RUN meteor npm install --allow-superuser
 # Expose port 3000 - that is the default port for Meteor applications.
 EXPOSE 3000
 
