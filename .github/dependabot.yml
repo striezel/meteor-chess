@@ -7,8 +7,6 @@ updates:
     directory: "/meteorapp"
     schedule:
       interval: "daily"
-    reviewers:
-      - "striezel"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
