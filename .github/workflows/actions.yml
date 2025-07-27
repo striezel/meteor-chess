@@ -7,7 +7,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       # Checks-out the repository under $GITHUB_WORKSPACE.
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - name: Cache Meteor.js installation
         uses: actions/cache@v4
         env:
@@ -29,7 +32,7 @@ jobs:
           sudo apt-get install -y bash bzip2 curl git libfontconfig1 procps tar
       - name: Download Meteor.js
         run: |
-          curl https://install.meteor.com/ | sh          
+          curl https://install.meteor.com/ | sh
       - name: Install Meteor packages
         run: |
           cd "$GITHUB_WORKSPACE"/meteorapp
