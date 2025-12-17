@@ -1,7 +1,7 @@
-# This Dockerfile will set up a Debian 12-based container that is able to
+# This Dockerfile will set up a Debian 13-based container that is able to
 # run the Meteor chess application.
 
-FROM debian:12-slim
+FROM debian:13-slim
 MAINTAINER Dirk Stolle <striezel-dev@web.de>
 
 # Packages should be up to date.
